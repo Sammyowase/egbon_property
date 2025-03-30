@@ -2,21 +2,24 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
-import { FaRuler, FaMapMarkerAlt, FaTree, FaRoad, FaWater, FaCertificate, FaSearch, FaFilter, FaArrowRight, FaInfoCircle, FaPhone, FaWhatsapp, FaCheck, FaImage, FaTrash, FaExchangeAlt, FaSave, FaShare, FaBuilding, FaMountain, FaTools } from 'react-icons/fa'
+import { FaTree, FaMapMarkerAlt, FaSearch, FaWater, FaSun, FaLeaf, FaTractor, FaMountain, FaRoad, FaSeedling, FaTrash, FaWhatsapp, FaShare, FaRuler, FaSave, FaExchangeAlt, FaFilter, FaMoneyBillWave, FaCertificate } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import CompareDrawer from '@/components/property/CompareDrawer'
 import { BaseProperty } from '@/types/property'
 import PropertyCard from '@/components/property/PropertyCard'
 import PropertySearch from '@/components/property/PropertySearch'
-import CompareDrawer from '@/components/property/CompareDrawer'
 import PropertyDetailModal from '@/components/property/PropertyDetailModal'
 import PropertyFilter from '@/components/property/PropertyFilter'
 
-interface LandProperty extends BaseProperty {
-  category: string
-  utilities: string[]
-  zoning: string
-  topography: string
+interface FarmlandProperty extends BaseProperty {
+  category: 'Crop Farming' | 'Livestock' | 'Mixed Use' | 'Aquaculture'
+  soilType: string
+  waterSource: string[]
+  crops: string[]
+  infrastructure: string[]
+  accessibility: string
+  seasonality: string
 }
 
 // Animation variants
@@ -31,42 +34,42 @@ const containerVariants = {
 }
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { y: 20, opacity: 0 },
   visible: {
-    opacity: 1,
     y: 0,
+    opacity: 1,
     transition: {
-      duration: 0.5
+      type: "spring",
+      stiffness: 100
     }
   }
 }
 
 const cardHoverVariants = {
-  rest: { scale: 1 },
-  hover: { scale: 1.02 }
-}
-
-const compareDrawerVariants = {
-  hidden: { x: '100%' },
-  visible: { 
-    x: 0,
+  rest: { scale: 1, boxShadow: "0 4px 6px rgba(234, 179, 8, 0.1)" },
+  hover: { 
+    scale: 1.02,
+    boxShadow: "0 10px 20px rgba(234, 179, 8, 0.2)",
     transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 30
+      type: "spring",
+      stiffness: 400,
+      damping: 17
     }
   }
 }
 
-export default function LandPage() {
+export default function FarmlandPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedLocation, setSelectedLocation] = useState('All')
-  const [priceRange, setPriceRange] = useState('All')
+  const [selectedSize, setSelectedSize] = useState('All')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')
-  const [selectedProperty, setSelectedProperty] = useState<LandProperty | null>(null)
-  const [filteredListings, setFilteredListings] = useState<LandProperty[]>([])
+  const [selectedProperty, setSelectedProperty] = useState<FarmlandProperty | null>(null)
+  const [showContactModal, setShowContactModal] = useState(false)
+  const [filteredProperties, setFilteredProperties] = useState<FarmlandProperty[]>([])
   const [isLoading, setIsLoading] = useState(true)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const [showGallery, setShowGallery] = useState(false)
   const [selectedProperties, setSelectedProperties] = useState<string[]>([])
   const [showCompareDrawer, setShowCompareDrawer] = useState(false)
   const [savedSearches, setSavedSearches] = useState<{
@@ -76,116 +79,125 @@ export default function LandPage() {
   }[]>([])
   const [showShareModal, setShowShareModal] = useState(false)
   const [showSaveSearchModal, setShowSaveSearchModal] = useState(false)
-  const [recentlyViewed, setRecentlyViewed] = useState<LandProperty[]>([])
+  const [recentlyViewed, setRecentlyViewed] = useState<FarmlandProperty[]>([])
+  const [filterHistory, setFilterHistory] = useState<{
+    timestamp: number
+    filters: any
+  }[]>([])
 
-  const featuredLand: LandProperty = {
-    id: 'featured-1',
-    title: "Premium Land in Lekki Phase 1",
-    size: "1000 sqm",
-    price: "₦150M",
-    location: "Lekki Phase 1, Lagos",
-    features: [
-      "C of O Documentation",
-      "Waterfront Access",
-      "Developed Area",
-      "Road Network"
-    ],
-    description: "Prime waterfront land perfect for luxury development. Fully documented with C of O and all necessary approvals.",
-    amenities: ["Electricity", "Water", "Security", "Good Road"],
-    image: "/land/featured-land.jpg",
-    category: "Premium",
-    gallery: ["/land/featured-1.jpg", "/land/featured-2.jpg", "/land/featured-3.jpg"],
-    status: "Available",
-    documents: ["C of O", "Survey Plan", "Site Plan"],
-    utilities: ["Water", "Electricity", "Drainage"],
-    zoning: "Mixed Use",
-    topography: "Flat",
-    phoneNumber: "+2341234567890"
-  }
-
-  const landListings: LandProperty[] = [
+  const farmlandProperties: FarmlandProperty[] = [
     {
-      id: 'land-1',
-      title: "Commercial Plot in Victoria Island",
-      size: "800 sqm",
-      price: "₦200M",
-      location: "Victoria Island, Lagos",
-      features: ["C of O Available", "Corner Piece", "Fenced"],
-      description: "Strategic commercial plot in the heart of Victoria Island. Perfect for corporate headquarters or mixed-use development.",
-      amenities: ["24/7 Security", "Drainage System", "Street Lights"],
-      image: "/land/land1.jpg",
-      category: "Commercial",
-      gallery: ["/land/vi-1.jpg", "/land/vi-2.jpg"],
-      status: "Available",
-      documents: ["C of O", "Survey Plan"],
-      utilities: ["Water", "Electricity"],
-      zoning: "Commercial",
-      topography: "Flat",
-      phoneNumber: "+2341234567890"
+      id: '1',
+      title: 'Premium Farmland Estate',
+      location: 'Oyo State',
+      size: '1000 hectares',
+      price: '₦500M',
+      status: 'Available',
+      image: '/farmland/estate-1.jpg',
+      description: "Expansive farmland with rich soil perfect for large-scale agriculture. Features natural water sources and excellent road access.",
+      features: [
+        "Rich Loamy Soil",
+        "Year-round Water Access",
+        "Power Supply",
+        "Security Post",
+        "Access Roads",
+        "Storage Facilities",
+        "Farm Equipment",
+        "Staff Quarters"
+      ],
+      amenities: ["Electricity", "Security", "Storage Facilities", "Internet Coverage"],
+      gallery: ['/farmland/estate-1.jpg', '/farmland/estate-2.jpg', '/farmland/estate-3.jpg'],
+      category: "Crop Farming",
+      soilType: "Loamy",
+      waterSource: ["River", "Boreholes"],
+      crops: ["Maize", "Cassava", "Rice", "Vegetables"],
+      infrastructure: ["Electricity", "Security", "Storage Facilities", "Internet Coverage"],
+      accessibility: "Paved Road Access",
+      seasonality: "Year-round farming",
+      documents: ["C of O", "Survey Plan", "Soil Analysis Report"],
+      phoneNumber: "+234123456789"
     },
     {
-      id: 'land-2',
-      title: "Residential Land in Ikoyi",
-      size: "500 sqm",
-      price: "₦120M",
-      location: "Ikoyi, Lagos",
-      features: ["Governor's Consent", "Serene Environment", "Gated Estate"],
-      description: "Beautiful residential plot in a secure, gated community. Perfect for building your dream home.",
-      amenities: ["Estate Security", "Underground Drainage", "Recreational Areas"],
-      image: "/land/land2.jpg",
-      category: "Residential",
-      gallery: ["/land/ikoyi-1.jpg", "/land/ikoyi-2.jpg"],
-      status: "Under Contract",
-      documents: ["Governor's Consent", "Survey Plan"],
-      utilities: ["Water", "Electricity", "Gas"],
-      zoning: "Residential",
-      topography: "Gentle Slope",
-      phoneNumber: "+2341234567890"
+      id: '2',
+      title: 'Riverside Agricultural Land',
+      location: 'Kwara State',
+      size: '500 hectares',
+      price: '₦300M',
+      status: 'Under Contract',
+      image: '/farmland/riverside-1.jpg',
+      description: "Strategic farmland with river frontage, ideal for irrigation-dependent crops. Includes basic infrastructure and storage facilities.",
+      features: [
+        "River Frontage",
+        "Irrigation System",
+        "Storage Facilities",
+        "Security",
+        "Farm House"
+      ],
+      amenities: ["Water Pump", "Storage", "Farm House"],
+      gallery: ['/farmland/riverside-1.jpg', '/farmland/riverside-2.jpg', '/farmland/riverside-3.jpg'],
+      category: "Mixed Use",
+      soilType: "Sandy Loam",
+      waterSource: ["River", "Rain-fed"],
+      crops: ["Rice", "Vegetables", "Sugarcane"],
+      infrastructure: ["Water Pump", "Storage Facilities", "Farm House", "Irrigation System"],
+      accessibility: "Gravel Road",
+      seasonality: "Dual season farming",
+      documents: ["Survey Plan", "Deed of Assignment"],
+      phoneNumber: "+234123456789"
     },
     {
-      id: 'land-3',
-      title: "Waterfront Plot in Banana Island",
-      size: "1200 sqm",
-      price: "₦350M",
-      location: "Banana Island, Lagos",
-      features: ["C of O Available", "Waterfront", "Premium Location"],
-      description: "Exclusive waterfront plot in Nigeria's most prestigious neighborhood. Rare investment opportunity.",
-      amenities: ["Private Jetty Access", "24/7 Security", "Underground Utilities"],
-      image: "/land/land3.jpg",
-      category: "Premium",
-      gallery: ["/land/banana-1.jpg", "/land/banana-2.jpg"],
-      status: "Available",
-      documents: ["C of O", "Survey Plan", "Site Plan"],
-      utilities: ["Water", "Electricity", "Gas", "Internet"],
-      zoning: "Residential",
-      topography: "Waterfront",
-      phoneNumber: "+2341234567890"
+      id: '3',
+      title: 'Highland Farm Estate',
+      location: 'Plateau State',
+      size: '300 hectares',
+      price: '₦250M',
+      status: 'Available',
+      image: '/farmland/highland-1.jpg',
+      description: "High-altitude farmland perfect for temperate crops. Features cool climate and natural springs.",
+      features: [
+        "Cool Climate",
+        "Natural Springs",
+        "Mountain Views",
+        "Rich Soil",
+        "Existing Crops"
+      ],
+      amenities: ["Water Source", "Basic Infrastructure"],
+      gallery: ['/farmland/highland-1.jpg', '/farmland/highland-2.jpg', '/farmland/highland-3.jpg'],
+      category: "Crop Farming",
+      soilType: "Volcanic Soil",
+      waterSource: ["Springs", "Rain-fed"],
+      crops: ["Tea", "Coffee", "Vegetables", "Fruits"],
+      infrastructure: ["Water Source", "Basic Infrastructure", "Storage Facilities"],
+      accessibility: "Mountain Road",
+      seasonality: "Cool climate farming",
+      documents: ["C of O", "Environmental Impact Assessment"],
+      phoneNumber: "+234123456789"
     }
   ]
 
   const locations = [
     "All",
-    "Lekki Phase 1",
-    "Victoria Island",
-    "Ikoyi",
-    "Banana Island",
-    "Ajah"
+    "Ogun State",
+    "Oyo State",
+    "Osun State",
+    "Ekiti State",
+    "Ondo State"
   ]
 
-  const priceRanges = [
+  const sizes = [
     "All",
-    "Below ₦50M",
-    "₦50M - ₦100M",
-    "₦100M - ₦200M",
-    "Above ₦200M"
+    "100-300 hectares",
+    "301-500 hectares",
+    "501-1000 hectares",
+    "1000+ hectares"
   ]
 
   const categories = [
     "All",
-    "Residential",
-    "Commercial",
-    "Premium",
-    "Industrial"
+    "Crop Farming",
+    "Livestock",
+    "Mixed Use",
+    "Aquaculture"
   ]
 
   const statusOptions = [
@@ -198,7 +210,7 @@ export default function LandPage() {
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 1500)
 
-    let filtered = [...landListings]
+    let filtered = [...farmlandProperties]
     
     if (searchQuery) {
       filtered = filtered.filter(property => 
@@ -213,34 +225,161 @@ export default function LandPage() {
       filtered = filtered.filter(property => property.location === selectedLocation)
     }
 
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter(property => property.category === selectedCategory)
+    if (selectedSize !== 'All') {
+      filtered = filtered.filter(property => {
+        const size = parseInt(property.size)
+        const [min, max] = selectedSize.split('-').map(s => parseInt(s))
+        return size >= min && (max ? size <= max : true)
+      })
     }
 
-    if (priceRange !== 'All') {
-      const [min, max] = getPriceRange(priceRange)
-      filtered = filtered.filter(property => {
-        const price = parseInt(property.price.replace('₦', '').replace('M', ''))
-        return price >= min && (max === Infinity || price <= max)
-      })
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(property => property.category === selectedCategory)
     }
 
     if (selectedStatus !== 'All') {
       filtered = filtered.filter(property => property.status === selectedStatus)
     }
 
-    setFilteredListings(filtered)
-  }, [searchQuery, selectedLocation, selectedCategory, priceRange, selectedStatus])
+    setFilteredProperties(filtered)
 
-  useEffect(() => {
-    if (selectedProperty) {
-      setRecentlyViewed(prev => {
-        const newViewed = [selectedProperty, ...prev.filter(p => p.id !== selectedProperty.id)]
-        return newViewed.slice(0, 5)
-      })
+    // Save filter history
+    if (selectedLocation !== 'All' || selectedCategory !== 'All' || 
+        selectedSize !== 'All' || selectedStatus !== 'All') {
+      setFilterHistory(prev => [{
+        timestamp: Date.now(),
+        filters: {
+          location: selectedLocation,
+          category: selectedCategory,
+          size: selectedSize,
+          status: selectedStatus
+        }
+      }, ...prev.slice(0, 9)])
     }
-  }, [selectedProperty])
+  }, [searchQuery, selectedLocation, selectedCategory, selectedSize, selectedStatus])
 
+  // Ensure images exist before rendering
+  const getImageUrl = (url: string) => {
+    try {
+      return url.startsWith('http') ? url : url.startsWith('/') ? url : `/${url}`
+    } catch (error) {
+      return '/images/placeholder.jpg'
+    }
+  }
+
+  const renderExtraInfo = (property: BaseProperty) => {
+    const farmProperty = property as FarmlandProperty
+    return (
+      <>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Property Details</div>
+          <div className="space-y-2">
+            <div className="flex items-center text-white/80">
+              <FaTree className="text-primary-gold mr-2" />
+              {farmProperty.category}
+            </div>
+            <div className="flex items-center text-white/80">
+              <FaWater className="text-primary-gold mr-2" />
+              {farmProperty.waterSource.join(', ')}
+            </div>
+            <div className="flex items-center text-white/80">
+              <FaSeedling className="text-primary-gold mr-2" />
+              {farmProperty.soilType}
+            </div>
+            <div className="flex items-center text-white/80">
+              <FaRoad className="text-primary-gold mr-2" />
+              {farmProperty.accessibility}
+            </div>
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  const renderCompareExtraInfo = (property: BaseProperty) => {
+    const farmProperty = property as FarmlandProperty
+    return (
+      <>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Category</div>
+          <div className="text-white/80">{farmProperty.category}</div>
+        </div>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Soil Type</div>
+          <div className="text-white/80">{farmProperty.soilType}</div>
+        </div>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Water Sources</div>
+          <div className="flex flex-wrap gap-2">
+            {farmProperty.waterSource.map((source, index) => (
+              <span key={index} className="bg-primary-gold/10 text-primary-gold px-2 py-1 rounded-full text-xs">
+                {source}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Crops</div>
+          <div className="flex flex-wrap gap-2">
+            {farmProperty.crops.map((crop, index) => (
+              <span key={index} className="bg-primary-gold/10 text-primary-gold px-2 py-1 rounded-full text-xs">
+                {crop}
+              </span>
+            ))}
+          </div>
+        </div>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Infrastructure</div>
+          <div className="flex flex-wrap gap-2">
+            {farmProperty.infrastructure.map((item, index) => (
+              <span key={index} className="bg-primary-gold/10 text-primary-gold px-2 py-1 rounded-full text-xs">
+                {item}
+              </span>
+            ))}
+          </div>
+        </div>
+      </>
+    )
+  }
+
+  // Share function
+  const shareListing = (property: FarmlandProperty) => {
+    if (navigator.share) {
+      navigator.share({
+        title: property.title,
+        text: `Check out this farmland: ${property.title} in ${property.location}`,
+        url: window.location.href
+      })
+    } else {
+      setShowShareModal(true)
+    }
+  }
+
+  // Save search function
+  const saveCurrentSearch = (name: string) => {
+    const newSearch = {
+      id: Date.now().toString(),
+      name,
+      filters: {
+        location: selectedLocation,
+        category: selectedCategory,
+        size: selectedSize,
+        status: selectedStatus
+      }
+    }
+    setSavedSearches(prev => [...prev, newSearch])
+    setShowSaveSearchModal(false)
+  }
+
+  // Load saved search
+  const loadSavedSearch = (search: { filters: any }) => {
+    setSelectedLocation(search.filters.location)
+    setSelectedCategory(search.filters.category)
+    setSelectedSize(search.filters.size)
+    setSelectedStatus(search.filters.status)
+  }
+
+  // Property comparison
   const togglePropertyComparison = (propertyId: string) => {
     setSelectedProperties(prev => {
       if (prev.includes(propertyId)) {
@@ -253,113 +392,19 @@ export default function LandPage() {
     })
   }
 
-  const saveCurrentSearch = (name: string) => {
-    const newSearch = {
-      id: Date.now().toString(),
-      name,
-      filters: {
-        location: selectedLocation,
-        category: selectedCategory,
-        priceRange,
-        status: selectedStatus
-      }
-    }
-    setSavedSearches(prev => [...prev, newSearch])
-    setShowSaveSearchModal(false)
-  }
-
-  const loadSavedSearch = (search: { filters: any }) => {
-    setSelectedLocation(search.filters.location)
-    setSelectedCategory(search.filters.category)
-    setPriceRange(search.filters.priceRange)
-    setSelectedStatus(search.filters.status)
-  }
-
-  const getPriceRange = (range: string): [number, number] => {
-    switch (range) {
-      case 'Below ₦50M': return [0, 50]
-      case '₦50M - ₦100M': return [50, 100]
-      case '₦100M - ₦200M': return [100, 200]
-      case 'Above ₦200M': return [200, Infinity]
-      default: return [0, Infinity]
-    }
-  }
-
-  const handlePropertySelect = (property: BaseProperty) => {
-    const landProperty = property as LandProperty
-    setSelectedProperty(landProperty)
-  }
-
-  const renderExtraInfo = (property: BaseProperty) => {
-    const landProperty = property as LandProperty
-    return (
-      <>
-        <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Property Details</div>
-          <div className="space-y-2">
-            <div className="flex items-center text-white/80">
-              <FaBuilding className="text-primary-gold mr-2" />
-              {landProperty.category}
-            </div>
-            <div className="flex items-center text-white/80">
-              <FaMountain className="text-primary-gold mr-2" />
-              {landProperty.topography}
-            </div>
-            <div className="flex items-center text-white/80">
-              <FaTools className="text-primary-gold mr-2" />
-              {landProperty.utilities.join(', ')}
-            </div>
-            <div className="flex items-center text-white/80">
-              <FaMapMarkerAlt className="text-primary-gold mr-2" />
-              {landProperty.zoning}
-            </div>
-          </div>
-        </div>
-      </>
-    )
-  }
-
-  const renderCompareExtraInfo = (property: BaseProperty) => {
-    const landProperty = property as LandProperty
-    return (
-      <>
-        <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Category</div>
-          <div className="text-white/80">{landProperty.category}</div>
-        </div>
-        <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Topography</div>
-          <div className="text-white/80">{landProperty.topography}</div>
-        </div>
-        <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Utilities</div>
-          <div className="flex flex-wrap gap-2">
-            {landProperty.utilities.map((utility, index) => (
-              <span key={index} className="bg-primary-gold/10 text-primary-gold px-2 py-1 rounded-full text-xs">
-                {utility}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Zoning</div>
-          <div className="text-white/80">{landProperty.zoning}</div>
-        </div>
-      </>
-    )
-  }
-
-  const shareListing = (property: LandProperty) => {
-    setSelectedProperty(property)
-    if (navigator.share) {
-      navigator.share({
-        title: property.title,
-        text: `Check out this property: ${property.title} in ${property.location}`,
-        url: window.location.href
+  // Handle recently viewed properties
+  useEffect(() => {
+    if (selectedProperty) {
+      setRecentlyViewed(prev => {
+        const newViewed = [selectedProperty, ...prev.filter(p => p.id !== selectedProperty.id)]
+        return newViewed.slice(0, 5)
       })
-    } else {
-      setShowShareModal(true)
     }
+  }, [selectedProperty])
+
+  // Handle property selection
+  const handlePropertySelect = (property: BaseProperty) => {
+    setSelectedProperty(property as FarmlandProperty)
   }
 
   return (
@@ -367,61 +412,58 @@ export default function LandPage() {
       <MotionBackground />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-16 relative">
+      <motion.section 
+        className="pt-32 pb-16 relative"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto"
+            variants={itemVariants}
           >
             <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-gradient"
-              initial={{ scale: 0.95, opacity: 0 }}
+              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-yellow-500 to-primary-gold"
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
             >
-              Premium Land Properties
+              Premium Farmland Properties
             </motion.h1>
             <motion.p 
-              className="text-lg text-white/90 mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-xl text-white/90 mb-8 leading-relaxed"
+              variants={itemVariants}
             >
-              Discover prime land opportunities in Nigeria's most sought-after locations
+              Discover prime agricultural land for your farming ventures
             </motion.p>
 
-            {/* Search and Filter Section */}
-            <motion.div
-              className="bg-primary-black/50 p-6 rounded-lg border border-primary-gold/20 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <PropertyFilter
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                selectedLocation={selectedLocation}
-                setSelectedLocation={setSelectedLocation}
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                selectedProjectType={selectedCategory}
-                setSelectedProjectType={setSelectedCategory}
-                selectedStatus={selectedStatus}
-                setSelectedStatus={setSelectedStatus}
-                locations={locations.map(loc => ({ value: loc, label: loc }))}
-                priceRanges={priceRanges.map(range => ({ value: range, label: range }))}
-                projectTypes={categories.map(cat => ({ value: cat, label: cat }))}
-                statusOptions={statusOptions.map(status => ({ value: status, label: status }))}
-                filteredProperties={filteredListings}
-                recentlyViewed={recentlyViewed}
-                onPropertySelect={handlePropertySelect}
-              />
-            </motion.div>
+            <PropertyFilter
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
+              priceRange={selectedSize}
+              setPriceRange={setSelectedSize}
+              selectedProjectType={selectedCategory}
+              setSelectedProjectType={setSelectedCategory}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+              locations={locations.map(loc => ({ value: loc, label: loc }))}
+              priceRanges={sizes.map(range => ({ value: range, label: range }))}
+              projectTypes={categories.map(type => ({ value: type, label: type }))}
+              statusOptions={statusOptions.map(status => ({ value: status, label: status }))}
+              filteredProperties={filteredProperties}
+              recentlyViewed={recentlyViewed}
+              onPropertySelect={handlePropertySelect}
+            />
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Properties Grid */}
       <motion.section 
@@ -482,7 +524,7 @@ export default function LandPage() {
                 </motion.div>
               ))
             ) : (
-              filteredListings.map((property) => (
+              filteredProperties.map((property) => (
                 <PropertyCard
                   key={property.id}
                   property={property as BaseProperty}
@@ -502,7 +544,7 @@ export default function LandPage() {
         isOpen={showCompareDrawer}
         onClose={() => setShowCompareDrawer(false)}
         properties={selectedProperties.map(id => 
-          landListings.find(p => p.id === id)! as BaseProperty
+          farmlandProperties.find(p => p.id === id)! as BaseProperty
         )}
         extraInfo={renderCompareExtraInfo}
       />
@@ -540,7 +582,7 @@ export default function LandPage() {
                     rounded-lg hover:bg-[#128C7E] transition-all duration-300"
                   onClick={() => {
                     window.open(
-                      `https://wa.me/?text=Check out this property: ${selectedProperty.title} in ${selectedProperty.location} - ${window.location.href}`,
+                      `https://wa.me/?text=Check out this farmland property: ${selectedProperty.title} in ${selectedProperty.location} - ${window.location.href}`,
                       '_blank'
                     )
                     setShowShareModal(false)
@@ -608,22 +650,22 @@ export default function LandPage() {
                 <div>
                   <div className="text-white/60 mb-2">Current Filters</div>
                   <div className="space-y-2">
-                    {selectedLocation !== 'Location' && (
+                    {selectedLocation !== 'All' && (
                       <div className="flex items-center text-white/80">
                         <FaMapMarkerAlt className="text-primary-gold mr-2" />
                         Location: {selectedLocation}
                       </div>
                     )}
-                    {selectedCategory !== 'Category' && (
+                    {selectedCategory !== 'All' && (
                       <div className="flex items-center text-white/80">
-                        <FaBuilding className="text-primary-gold mr-2" />
+                        <FaTree className="text-primary-gold mr-2" />
                         Category: {selectedCategory}
                       </div>
                     )}
-                    {priceRange !== 'Price Range' && (
+                    {selectedSize !== 'All' && (
                       <div className="flex items-center text-white/80">
                         <FaRuler className="text-primary-gold mr-2" />
-                        Price: {priceRange}
+                        Size: {selectedSize}
                       </div>
                     )}
                   </div>

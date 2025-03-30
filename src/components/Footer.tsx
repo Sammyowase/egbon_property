@@ -17,8 +17,9 @@ const Footer = () => {
       title: 'Properties',
       links: [
         { name: 'Land', href: '/portfolio/land' },
-        { name: 'Property', href: '/portfolio/property' },
-        { name: 'Luxury', href: '/portfolio/luxury' },
+        { name: 'Construction', href: '/portfolio/construction' },
+        { name: 'Agriculture', href: '/portfolio/agriculture' },
+        {name:  'Farmland', href: '/portfolio/farmland  '}
       ],
     },
     {

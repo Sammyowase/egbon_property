@@ -2,12 +2,19 @@
 
 import { motion } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
-import { FaBed, FaBath, FaRuler, FaSearch, FaHome, FaHandshake, FaTrophy, FaUsers } from 'react-icons/fa'
+import { FaBed, FaBath, FaRuler, FaSearch, FaHome, FaHandshake, FaTrophy, FaUsers, FaRegHeart, FaHeart, FaShareAlt } from 'react-icons/fa'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import PropertyMap from '@/components/PropertyMap'
 
 export default function HomePage() {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [email, setEmail] = useState('');
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [likedProperties, setLikedProperties] = useState<Set<number>>(new Set());
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [hoveredProperty, setHoveredProperty] = useState<number | null>(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -36,66 +43,86 @@ export default function HomePage() {
   const stats = [
     { icon: <FaHome />, value: '500+', label: 'Properties Sold' },
     { icon: <FaHandshake />, value: '1000+', label: 'Happy Clients' },
-    { icon: <FaTrophy />, value: '15+', label: 'Years Experience' },
+    { icon: <FaTrophy />, value: '10+', label: 'Years Experience' },
     { icon: <FaUsers />, value: '50+', label: 'Expert Agents' },
   ]
 
-  const featuredProperties = [
+  const portfolioCategories = [
+    { id: 'all', label: 'All Portfolios' },
+    { id: 'land', label: 'Land Development' },
+    { id: 'construction', label: 'Construction' },
+    { id: 'agriculture', label: 'Agriculture' },
+    { id: 'farmland', label: 'Farm Land' }
+  ];
+
+  const featuredPortfolios = [
     {
-      title: 'Luxury Villa with Ocean View',
+      title: 'Premium Land Development',
       location: 'Mowe Ibafo, OG',
       price: '₦5,900,000',
-      beds: 5,
-      baths: 6,
-      area: '6,200',
-      image: '/images/property1.jpg'
+      size: '1,200',
+      image: '/images/property1.jpg',
+      category: 'land',
+      highlights: ['Ready to Build', 'Prime Location', 'Verified Documents'],
+      description: 'Premium plots perfect for residential or commercial development.',
+      link: '/portfolio/land-development'
     },
     {
-      title: 'Modern Penthouse Suite',
+      title: 'Modern Housing Construction',
       location: 'Epe, LA',
       price: '₦8,500,000',
-      beds: 4,
-      baths: 4.5,
-      area: '4,800',
-      image: '/images/property2.jpg'
+      size: '2,500',
+      image: '/images/property2.jpg',
+      category: 'construction',
+      highlights: ['Turnkey Project', 'Modern Design', 'Quality Materials'],
+      description: 'State-of-the-art construction projects with modern amenities.',
+      link: '/portfolio/construction'
     },
     {
-      title: 'Beachfront Estate',
+      title: 'Agricultural Investment',
       location: 'Simawa, OG',
       price: '₦12,900,000',
-      beds: 6,
-      baths: 8,
-      area: '8,500',
-      image: '/images/property3.jpg'
+      size: '5,000',
+      image: '/images/property3.jpg',
+      category: 'agriculture',
+      highlights: ['High Yield', 'Irrigation System', 'Storage Facility'],
+      description: 'Agricultural projects with modern farming infrastructure.',
+      link: '/portfolio/agriculture'
     },
     {
-      title: 'Mountain View Mansion',
+      title: 'Farm Land Investment',
       location: 'Ikorodu, LA',
       price: '₦15,500,000',
-      beds: 7,
-      baths: 9,
-      area: '9,800',
-      image: '/images/property4.jpg'
+      size: '10,000',
+      image: '/images/property4.jpg',
+      category: 'farmland',
+      highlights: ['Fertile Soil', 'Water Access', 'Road Network'],
+      description: 'Large farm lands ideal for agricultural development.',
+      link: '/portfolio/farm-land'
     },
     {
-      title: 'Waterfront Contemporary',
+      title: 'Mixed-Use Development',
       location: 'Imota, LA',
       price: '₦7,200,000',
-      beds: 5,
-      baths: 5.5,
-      area: '5,500',
-      image: '/images/property5.jpg'
+      size: '3,000',
+      image: '/images/property5.jpg',
+      category: 'land',
+      highlights: ['Commercial Zone', 'Residential Area', 'Infrastructure'],
+      description: 'Strategic mixed-use development opportunities.',
+      link: '/portfolio/land-development'
     },
     {
-      title: 'Historic Downtown Penthouse',
+      title: 'Eco-Friendly Farm Project',
       location: 'Ikeja, LA',
       price: '₦16,800,000',
-      beds: 4,
-      baths: 4,
-      area: '4,200',
-      image: '/images/property6.jpg'
+      size: '8,000',
+      image: '/images/property6.jpg',
+      category: 'agriculture',
+      highlights: ['Organic Farming', 'Sustainable', 'Tech-Enabled'],
+      description: 'Sustainable agricultural projects with modern technology.',
+      link: '/portfolio/agriculture'
     }
-  ]
+  ];
 
   const testimonials = [
     {
@@ -115,12 +142,52 @@ export default function HomePage() {
     }
   ]
 
+  const mapProperties = [
+    {
+      title: 'Luxury Villa with Ocean View',
+      location: 'Mowe Ibafo, OG',
+      price: '₦5,900,000',
+      position: { lat: 6.8062, lng: 3.4368 }
+    },
+    {
+      title: 'Modern Penthouse Suite',
+      location: 'Epe, LA',
+      price: '₦8,500,000',
+      position: { lat: 6.6055, lng: 3.9470 }
+    },
+    {
+      title: 'Beachfront Estate',
+      location: 'Simawa, OG',
+      price: '₦12,900,000',
+      position: { lat: 6.6783, lng: 3.4598 }
+    },
+    {
+      title: 'Mountain View Mansion',
+      location: 'Ikorodu, LA',
+      price: '₦15,500,000',
+      position: { lat: 6.6194, lng: 3.5105 }
+    },
+    {
+      title: 'Waterfront Contemporary',
+      location: 'Imota, LA',
+      price: '₦7,200,000',
+      position: { lat: 6.6634, lng: 3.6619 }
+    },
+    {
+      title: 'Historic Downtown Penthouse',
+      location: 'Ikeja, LA',
+      price: '₦16,800,000',
+      position: { lat: 6.6018, lng: 3.3515 }
+    }
+  ];
+
+  // Animation variants
   const fadeInUp = {
     initial: { opacity: 0, y: 50 },
     whileInView: { opacity: 1, y: 0 },
     viewport: { once: true },
     transition: { duration: 0.8, ease: "easeOut" }
-  }
+  };
 
   const staggerChildren = {
     initial: { opacity: 0 },
@@ -129,7 +196,7 @@ export default function HomePage() {
     transition: {
       staggerChildren: 0.2
     }
-  }
+  };
 
   const cardHover = {
     rest: {
@@ -150,7 +217,40 @@ export default function HomePage() {
         ease: "easeOut"
       }
     }
-  }
+  };
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubscribing(true);
+    setSubscriptionStatus('idle');
+
+    try {
+      // Add your newsletter subscription API call here
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      setSubscriptionStatus('success');
+      setEmail('');
+    } catch (error) {
+      setSubscriptionStatus('error');
+    } finally {
+      setIsSubscribing(false);
+    }
+  };
+
+  const toggleLike = (index: number) => {
+    setLikedProperties(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(index)) {
+        newSet.delete(index);
+      } else {
+        newSet.add(index);
+      }
+      return newSet;
+    });
+  };
+
+  const filteredPortfolios = activeCategory === 'all' 
+    ? featuredPortfolios 
+    : featuredPortfolios.filter(p => p.category === activeCategory);
 
   return (
     <>
@@ -188,44 +288,8 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Property Search Section */}
-      <motion.section 
-        className="py-16 bg-primary-black/95"
-        {...fadeInUp}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="bg-primary-black/50 p-8 rounded-lg border border-primary-gold/20"
-            whileHover={{
-              boxShadow: "0 0 30px rgba(212, 175, 55, 0.15)",
-              transition: { duration: 0.3 }
-            }}
-          >
-            <h2 className="text-3xl font-bold mb-6 text-gradient text-center">Find Your Perfect Property</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <input
-                type="text"
-                placeholder="Location"
-                className="bg-primary-black/50 border border-primary-gold/30 rounded-md p-3 text-white"
-              />
-              <select className="bg-primary-black/50 border border-primary-gold/30 rounded-md p-3 text-white">
-                <option value="">Property Type</option>
-                <option value="house">House</option>
-                <option value="apartment">Apartment</option>
-                <option value="villa">Villa</option>
-              </select>
-              <input
-                type="text"
-                placeholder="Price Range"
-                className="bg-primary-black/50 border border-primary-gold/30 rounded-md p-3 text-white"
-              />
-              <button className="btn-primary flex items-center justify-center gap-2">
-                <FaSearch /> Search
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </motion.section>
+     
+           
 
       {/* Stats Section */}
       <motion.section 
@@ -269,7 +333,7 @@ export default function HomePage() {
         </div>
       </motion.section>
 
-      {/* Featured Properties */}
+      {/* Featured Portfolio */}
       <motion.section 
         className="py-16 bg-primary-black/95"
         variants={staggerChildren}
@@ -282,110 +346,335 @@ export default function HomePage() {
             className="text-3xl font-bold mb-12 text-gradient text-center"
             variants={fadeInUp}
           >
-            Featured Properties
+            Featured Portfolio
           </motion.h2>
-          <div className="relative">
-            {/* Navigation Arrows */}
-            <motion.button
-              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-12 z-10 text-primary-gold hover:scale-110 transition-transform"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                const container = document.querySelector('.properties-carousel');
-                if (container) {
-                  const scrollAmount = container.clientWidth;
-                  container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-                }
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </motion.button>
-            
-            <motion.button
-              className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-12 z-10 text-primary-gold hover:scale-110 transition-transform"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => {
-                const container = document.querySelector('.properties-carousel');
-                if (container) {
-                  const scrollAmount = container.clientWidth;
-                  container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-                }
-              }}
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </motion.button>
 
-            {/* Properties Carousel */}
-            <div 
-              className="properties-carousel overflow-hidden w-full"
-              style={{
-                scrollSnapType: 'x mandatory',
-                scrollBehavior: 'smooth',
-                WebkitOverflowScrolling: 'touch',
-                transition: 'all 1.5s cubic-bezier(0.4, 0, 0.2, 1)'
-              }}
-            >
-              <div className="flex gap-4 md:gap-8">
-                {featuredProperties.map((property, index) => (
-                  <motion.div
-                    key={index}
-                    variants={cardHover}
-                    initial="rest"
-                    whileHover="hover"
-                    className="min-w-[85%] sm:min-w-[45%] md:min-w-[calc(33.333%-1.33rem)] flex-shrink-0 bg-primary-black/50 rounded-lg overflow-hidden group"
-                    style={{ 
-                      scrollSnapAlign: 'start',
-                      transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)'
-                    }}
-                  >
-                    <motion.div 
-                      className="relative h-48 md:h-64"
-                      whileHover={{ scale: 1.05 }}
-                      transition={{ duration: 0.3 }}
+          {/* Category Filter */}
+          <motion.div 
+            className="flex flex-wrap justify-center gap-4 mb-12"
+            variants={staggerChildren}
+          >
+            {portfolioCategories.map((category) => (
+              <motion.button
+                key={category.id}
+                onClick={() => setActiveCategory(category.id)}
+                className={`px-6 py-2 rounded-full border-2 transition-all duration-300 ${
+                  activeCategory === category.id
+                    ? 'border-primary-gold bg-primary-gold/20 text-white'
+                    : 'border-primary-gold/30 hover:border-primary-gold/60 text-white/70 hover:text-white'
+                }`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {category.label}
+              </motion.button>
+            ))}
+          </motion.div>
+
+          {/* Portfolio Grid */}
+          <motion.div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+            variants={staggerChildren}
+          >
+            {filteredPortfolios.map((portfolio, index) => (
+              <motion.div
+                key={index}
+                variants={cardHover}
+                initial="rest"
+                whileHover="hover"
+                className="bg-primary-black/50 rounded-lg overflow-hidden border border-primary-gold/20 group"
+                onHoverStart={() => setHoveredProperty(index)}
+                onHoverEnd={() => setHoveredProperty(null)}
+              >
+                <div className="relative">
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={portfolio.image}
+                      alt={portfolio.title}
+                      className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  </div>
+                  
+                  {/* Portfolio Actions */}
+                  <div className="absolute top-4 right-4 flex gap-2">
+                    <motion.button
+                      onClick={() => toggleLike(index)}
+                      className="p-2 rounded-full bg-black/50 text-white hover:bg-primary-gold/20 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                     >
-                      <div className="absolute inset-0 bg-primary-gold/20" />
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-t from-primary-black to-transparent opacity-0 group-hover:opacity-100"
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                      />
-                    </motion.div>
-                    <motion.div 
-                      className="p-4 md:p-6"
-                      whileHover={{ y: -5 }}
-                      transition={{ duration: 0.2 }}
+                      {likedProperties.has(index) ? (
+                        <FaHeart className="text-primary-gold" />
+                      ) : (
+                        <FaRegHeart />
+                      )}
+                    </motion.button>
+                    <motion.button
+                      className="p-2 rounded-full bg-black/50 text-white hover:bg-primary-gold/20 transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
                     >
-                      <h3 className="text-lg md:text-xl font-bold mb-2 text-white group-hover:text-primary-gold transition-colors">
-                        {property.title}
-                      </h3>
-                      <p className="text-primary-gold mb-4">{property.price}</p>
-                      <p className="text-white/70 mb-4">{property.location}</p>
-                      <div className="flex items-center gap-4 text-white/60">
-                        <div className="flex items-center gap-1">
-                          <FaBed />
-                          <span>{property.beds}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <FaBath />
-                          <span>{property.baths}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <FaRuler />
-                          <span>{property.area} sq ft</span>
-                        </div>
-                      </div>
-                    </motion.div>
-                  </motion.div>
-                ))}
+                      <FaShareAlt />
+                    </motion.button>
+                  </div>
+
+                  {/* Price Tag */}
+                  <div className="absolute bottom-4 left-4">
+                    <p className="text-primary-gold font-bold text-xl">{portfolio.price}</p>
+                    <p className="text-white/90">{portfolio.location}</p>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <h3 className="text-xl font-bold mb-4 text-white group-hover:text-primary-gold transition-colors">
+                    {portfolio.title}
+                  </h3>
+                  
+                  {/* Portfolio Features */}
+                  <p className="text-white/70 mb-4">{portfolio.description}</p>
+                  <div className="flex items-center gap-6 mb-4 text-white/60">
+                    <div className="flex items-center gap-1">
+                      <FaRuler />
+                      <span>{portfolio.size} sqm</span>
+                    </div>
+                  </div>
+
+                  {/* Portfolio Highlights */}
+                  <div className="flex flex-wrap gap-2 mb-4">
+                    {portfolio.highlights.map((highlight, i) => (
+                      <span
+                        key={i}
+                        className="px-3 py-1 rounded-full bg-primary-gold/10 text-primary-gold text-sm"
+                      >
+                        {highlight}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* View Details Button */}
+                  <Link href={portfolio.link}>
+                    <motion.button
+                      className="w-full py-2 mt-2 rounded-md border border-primary-gold/30 text-white hover:bg-primary-gold/20 transition-colors"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      View Portfolio
+                    </motion.button>
+                  </Link>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+
+          {/* View All Button */}
+          <motion.div 
+            className="text-center mt-12"
+            variants={fadeInUp}
+          >
+            <Link href="/portfolio" className="btn-primary">
+              View All Portfolios
+            </Link>
+          </motion.div>
+        </div>
+      </motion.section>
+
+      {/* Virtual Tour Section */}
+      <motion.section
+        className="py-16"
+        variants={staggerChildren}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <motion.div variants={fadeInUp}>
+              <h2 className="text-3xl font-bold mb-6 text-gradient">
+                Experience Properties in Virtual Reality
+              </h2>
+              <p className="text-white/90 mb-8">
+                Take an immersive virtual tour of our luxury properties from the comfort of your home. Experience every detail in stunning 360° detail.
+              </p>
+              <div className="space-y-4 mb-8">
+                <div className="flex items-center gap-4 text-white/70">
+                  <div className="w-12 h-12 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold">
+                    <FaHome />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white">360° Tours</h3>
+                    <p>Explore every room in detail</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 text-white/70">
+                  <div className="w-12 h-12 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold">
+                    <FaSearch />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white">Detailed Views</h3>
+                    <p>Zoom in on specific features</p>
+                  </div>
+                </div>
               </div>
-            </div>
+              <motion.button
+                className="btn-primary"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Start Virtual Tour
+              </motion.button>
+            </motion.div>
+            <motion.div
+              className="relative h-[400px] rounded-lg overflow-hidden"
+              variants={fadeInUp}
+            >
+              <div className="absolute inset-0 bg-primary-gold/20 rounded-lg" />
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="w-20 h-20 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold text-4xl mx-auto mb-4">
+                    <motion.div
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [1, 0.8, 1]
+                      }}
+                      transition={{
+                        duration: 2,
+                        repeat: Infinity,
+                        ease: "easeInOut"
+                      }}
+                    >
+                      ▶
+                    </motion.div>
+                  </div>
+                  <p className="text-white font-bold">Watch Demo Tour</p>
+                </div>
+              </div>
+            </motion.div>
           </div>
+        </div>
+      </motion.section>
+
+      {/* Why Choose Us Section */}
+      <motion.section 
+        className="py-16"
+        variants={staggerChildren}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            className="text-3xl font-bold mb-12 text-gradient text-center"
+            variants={fadeInUp}
+          >
+            Why Choose Us
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.div
+              variants={cardHover}
+              initial="rest"
+              whileHover="hover"
+              className="bg-primary-black/50 p-8 rounded-lg border border-primary-gold/20 text-center"
+            >
+              <motion.div 
+                className="text-primary-gold text-4xl mb-6 mx-auto"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+              >
+                <FaTrophy />
+              </motion.div>
+              <h3 className="text-xl font-bold mb-4 text-white">Premium Properties</h3>
+              <p className="text-white/70">Access to exclusive luxury properties in prime locations, carefully curated for discerning buyers.</p>
+            </motion.div>
+
+            <motion.div
+              variants={cardHover}
+              initial="rest"
+              whileHover="hover"
+              className="bg-primary-black/50 p-8 rounded-lg border border-primary-gold/20 text-center"
+            >
+              <motion.div 
+                className="text-primary-gold text-4xl mb-6 mx-auto"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+              >
+                <FaHandshake />
+              </motion.div>
+              <h3 className="text-xl font-bold mb-4 text-white">Expert Guidance</h3>
+              <p className="text-white/70">Our experienced team provides personalized service and expert advice throughout your property journey.</p>
+            </motion.div>
+
+            <motion.div
+              variants={cardHover}
+              initial="rest"
+              whileHover="hover"
+              className="bg-primary-black/50 p-8 rounded-lg border border-primary-gold/20 text-center"
+            >
+              <motion.div 
+                className="text-primary-gold text-4xl mb-6 mx-auto"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+              >
+                <FaUsers />
+              </motion.div>
+              <h3 className="text-xl font-bold mb-4 text-white">Client Satisfaction</h3>
+              <p className="text-white/70">Our track record of satisfied clients and successful transactions speaks to our commitment to excellence.</p>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Interactive Map Section */}
+      <motion.section 
+        className="py-16 bg-primary-black/95"
+        variants={fadeInUp}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center"
+            variants={staggerChildren}
+          >
+            <div>
+              <motion.h2 
+                className="text-3xl font-bold mb-6 text-gradient"
+                variants={fadeInUp}
+              >
+                Find Properties in Prime Locations
+              </motion.h2>
+              <motion.p 
+                className="text-white/90 mb-8"
+                variants={fadeInUp}
+              >
+                Explore our interactive map to discover premium properties in the most sought-after neighborhoods. From beachfront villas to urban penthouses, find your perfect location.
+              </motion.p>
+              <motion.div
+                className="space-y-4"
+                variants={staggerChildren}
+              >
+                <div className="flex items-center gap-4 text-white/70">
+                  <div className="w-12 h-12 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold">
+                    <FaHome />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white">Premium Locations</h3>
+                    <p>Properties in the most desirable areas</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 text-white/70">
+                  <div className="w-12 h-12 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold">
+                    <FaSearch />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-white">Easy Search</h3>
+                    <p>Filter by location, price, and amenities</p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+            <motion.div
+              className="relative h-[400px] rounded-lg overflow-hidden"
+              variants={fadeInUp}
+            >
+              <PropertyMap properties={mapProperties} />
+            </motion.div>
+          </motion.div>
         </div>
       </motion.section>
 
@@ -433,10 +722,98 @@ export default function HomePage() {
         </div>
       </motion.section>
 
+      {/* Latest Blog Posts */}
+      <motion.section 
+        className="py-16"
+        variants={staggerChildren}
+        initial="initial"
+        whileInView="whileInView"
+        viewport={{ once: true }}
+      >
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.h2 
+            className="text-3xl font-bold mb-12 text-gradient text-center"
+            variants={fadeInUp}
+          >
+            Latest Insights & News
+          </motion.h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <motion.article
+              variants={cardHover}
+              initial="rest"
+              whileHover="hover"
+              className="bg-primary-black/50 rounded-lg overflow-hidden border border-primary-gold/20"
+            >
+              <div className="relative h-48">
+                <div className="absolute inset-0 bg-primary-gold/20" />
+              </div>
+              <div className="p-6">
+                <p className="text-primary-gold mb-2">Market Trends</p>
+                <h3 className="text-xl font-bold mb-3 text-white">
+                  2024 Luxury Real Estate Market Outlook
+                </h3>
+                <p className="text-white/70 mb-4">
+                  Discover the latest trends and predictions for the luxury real estate market in 2024.
+                </p>
+                <Link href="/blog/market-outlook" className="text-primary-gold hover:text-primary-gold/80 transition-colors">
+                  Read More →
+                </Link>
+              </div>
+            </motion.article>
+
+            <motion.article
+              variants={cardHover}
+              initial="rest"
+              whileHover="hover"
+              className="bg-primary-black/50 rounded-lg overflow-hidden border border-primary-gold/20"
+            >
+              <div className="relative h-48">
+                <div className="absolute inset-0 bg-primary-gold/20" />
+              </div>
+              <div className="p-6">
+                <p className="text-primary-gold mb-2">Investment</p>
+                <h3 className="text-xl font-bold mb-3 text-white">
+                  Top Investment Opportunities in Real Estate
+                </h3>
+                <p className="text-white/70 mb-4">
+                  Expert insights on the most promising real estate investment opportunities.
+                </p>
+                <Link href="/blog/investment-opportunities" className="text-primary-gold hover:text-primary-gold/80 transition-colors">
+                  Read More →
+                </Link>
+              </div>
+            </motion.article>
+
+            <motion.article
+              variants={cardHover}
+              initial="rest"
+              whileHover="hover"
+              className="bg-primary-black/50 rounded-lg overflow-hidden border border-primary-gold/20"
+            >
+              <div className="relative h-48">
+                <div className="absolute inset-0 bg-primary-gold/20" />
+              </div>
+              <div className="p-6">
+                <p className="text-primary-gold mb-2">Lifestyle</p>
+                <h3 className="text-xl font-bold mb-3 text-white">
+                  Luxury Living: Modern Home Design Trends
+                </h3>
+                <p className="text-white/70 mb-4">
+                  Explore the latest design trends shaping luxury homes in 2024.
+                </p>
+                <Link href="/blog/design-trends" className="text-primary-gold hover:text-primary-gold/80 transition-colors">
+                  Read More →
+                </Link>
+              </div>
+            </motion.article>
+          </div>
+        </div>
+      </motion.section>
+
       {/* Newsletter Section */}
       <motion.section 
         className="py-16 bg-primary-black/95"
-        {...fadeInUp}
+        variants={fadeInUp}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
@@ -456,26 +833,39 @@ export default function HomePage() {
             <p className="text-white/90 mb-8">
               Subscribe to our newsletter for exclusive property listings and market insights
             </p>
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4"
-              whileHover={{ y: -5 }}
-              transition={{ duration: 0.2 }}
-            >
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 bg-primary-black/50 border border-primary-gold/30 rounded-md p-3 text-white focus:border-primary-gold focus:ring-2 focus:ring-primary-gold/20 transition-all duration-300"
-              />
-              <motion.button 
-                className="btn-primary whitespace-nowrap"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+            <form onSubmit={handleSubscribe}>
+              <motion.div 
+                className="flex flex-col sm:flex-row gap-4"
+                whileHover={{ y: -5 }}
+                transition={{ duration: 0.2 }}
               >
-                Subscribe Now
-              </motion.button>
-            </motion.div>
+                <div className="flex-1">
+                  <input
+                    type="email"
+                    placeholder="Enter your email"
+                    className="w-full bg-primary-black/50 border border-primary-gold/30 rounded-md p-3 text-white focus:border-primary-gold focus:ring-2 focus:ring-primary-gold/20 transition-all duration-300"
+                    required
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  <p className="text-sm text-white/60 mt-2 text-left">
+                    We respect your privacy. Unsubscribe at any time.
+                  </p>
+                </div>
+                <motion.button 
+                  type="submit"
+                  className="btn-primary whitespace-nowrap"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  disabled={isSubscribing}
+                >
+                  {isSubscribing ? 'Subscribing...' : 'Subscribe Now'}
+                </motion.button>
+              </motion.div>
+            </form>
           </motion.div>
-    </div>
+        </div>
       </motion.section>
     </>
   )

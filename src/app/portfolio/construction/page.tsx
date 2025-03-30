@@ -2,22 +2,14 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
-import { FaRuler, FaMapMarkerAlt, FaTree, FaRoad, FaWater, FaCertificate, FaSearch, FaFilter, FaArrowRight, FaInfoCircle, FaPhone, FaWhatsapp, FaCheck, FaImage, FaTrash, FaExchangeAlt, FaSave, FaShare, FaBuilding, FaMountain, FaTools } from 'react-icons/fa'
+import { FaBuilding, FaHardHat, FaClock, FaCertificate, FaSave, FaExchangeAlt, FaWhatsapp, FaShare, FaMapMarkerAlt, FaRuler, FaTools, FaSearch, FaFilter, FaMoneyBillWave } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import { BaseProperty } from '@/types/property'
+import { ConstructionProperty, BaseProperty } from '@/types/property'
 import PropertyCard from '@/components/property/PropertyCard'
 import PropertySearch from '@/components/property/PropertySearch'
 import CompareDrawer from '@/components/property/CompareDrawer'
 import PropertyDetailModal from '@/components/property/PropertyDetailModal'
 import PropertyFilter from '@/components/property/PropertyFilter'
-
-interface LandProperty extends BaseProperty {
-  category: string
-  utilities: string[]
-  zoning: string
-  topography: string
-}
 
 // Animation variants
 const containerVariants = {
@@ -41,31 +33,14 @@ const itemVariants = {
   }
 }
 
-const cardHoverVariants = {
-  rest: { scale: 1 },
-  hover: { scale: 1.02 }
-}
-
-const compareDrawerVariants = {
-  hidden: { x: '100%' },
-  visible: { 
-    x: 0,
-    transition: {
-      type: 'spring',
-      stiffness: 300,
-      damping: 30
-    }
-  }
-}
-
-export default function LandPage() {
+export default function ConstructionPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedLocation, setSelectedLocation] = useState('All')
   const [priceRange, setPriceRange] = useState('All')
-  const [selectedCategory, setSelectedCategory] = useState('All')
+  const [selectedProjectType, setSelectedProjectType] = useState('All')
   const [selectedStatus, setSelectedStatus] = useState('All')
-  const [selectedProperty, setSelectedProperty] = useState<LandProperty | null>(null)
-  const [filteredListings, setFilteredListings] = useState<LandProperty[]>([])
+  const [selectedProperty, setSelectedProperty] = useState<ConstructionProperty | null>(null)
+  const [filteredListings, setFilteredListings] = useState<ConstructionProperty[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [selectedProperties, setSelectedProperties] = useState<string[]>([])
   const [showCompareDrawer, setShowCompareDrawer] = useState(false)
@@ -76,89 +51,84 @@ export default function LandPage() {
   }[]>([])
   const [showShareModal, setShowShareModal] = useState(false)
   const [showSaveSearchModal, setShowSaveSearchModal] = useState(false)
-  const [recentlyViewed, setRecentlyViewed] = useState<LandProperty[]>([])
+  const [recentlyViewed, setRecentlyViewed] = useState<ConstructionProperty[]>([])
 
-  const featuredLand: LandProperty = {
-    id: 'featured-1',
-    title: "Premium Land in Lekki Phase 1",
-    size: "1000 sqm",
-    price: "₦150M",
+  const featuredProject: ConstructionProperty = {
+    id: 'const-1',
+    title: "Luxury Apartment Complex",
+    size: "2000 sqm",
+    price: "₦850M",
     location: "Lekki Phase 1, Lagos",
     features: [
-      "C of O Documentation",
-      "Waterfront Access",
-      "Developed Area",
-      "Road Network"
+      "Modern Architecture",
+      "Smart Home Integration",
+      "Sustainable Design"
     ],
-    description: "Prime waterfront land perfect for luxury development. Fully documented with C of O and all necessary approvals.",
-    amenities: ["Electricity", "Water", "Security", "Good Road"],
-    image: "/land/featured-land.jpg",
-    category: "Premium",
-    gallery: ["/land/featured-1.jpg", "/land/featured-2.jpg", "/land/featured-3.jpg"],
-    status: "Available",
-    documents: ["C of O", "Survey Plan", "Site Plan"],
-    utilities: ["Water", "Electricity", "Drainage"],
-    zoning: "Mixed Use",
-    topography: "Flat",
+    description: "Premium residential development featuring luxury apartments with modern amenities.",
+    amenities: ["Swimming Pool", "Gym", "24/7 Security"],
+    image: "/construction/luxury-apartments.jpg",
+    gallery: ["/construction/luxury-1.jpg", "/construction/luxury-2.jpg"],
+    status: "Under Contract",
+    documents: ["Building Permit", "Environmental Impact Assessment"],
+    propertyType: "Residential",
+    stage: "Ongoing",
+    completion: "2024-12",
+    developer: "Premium Developers Ltd",
+    specifications: ["High-end Finishes", "Sound Proofing", "Energy Efficient"],
+    facilities: ["Underground Parking", "Rooftop Garden", "Business Center"],
     phoneNumber: "+2341234567890"
   }
 
-  const landListings: LandProperty[] = [
+  const constructionListings: ConstructionProperty[] = [
+    featuredProject,
     {
-      id: 'land-1',
-      title: "Commercial Plot in Victoria Island",
-      size: "800 sqm",
-      price: "₦200M",
+      id: 'const-2',
+      title: "Modern Office Complex",
+      size: "5000 sqm",
+      price: "₦1.2B",
       location: "Victoria Island, Lagos",
-      features: ["C of O Available", "Corner Piece", "Fenced"],
-      description: "Strategic commercial plot in the heart of Victoria Island. Perfect for corporate headquarters or mixed-use development.",
-      amenities: ["24/7 Security", "Drainage System", "Street Lights"],
-      image: "/land/land1.jpg",
-      category: "Commercial",
-      gallery: ["/land/vi-1.jpg", "/land/vi-2.jpg"],
+      features: [
+        "Grade A Office Space",
+        "Green Building",
+        "Smart Technology"
+      ],
+      description: "State-of-the-art office complex with modern facilities and sustainable features.",
+      amenities: ["Conference Center", "Cafeteria", "Parking"],
+      image: "/construction/office-complex.jpg",
+      gallery: ["/construction/office-1.jpg", "/construction/office-2.jpg"],
       status: "Available",
-      documents: ["C of O", "Survey Plan"],
-      utilities: ["Water", "Electricity"],
-      zoning: "Commercial",
-      topography: "Flat",
+      documents: ["Building Permit", "Fire Safety Approval"],
+      propertyType: "Commercial",
+      stage: "Ongoing",
+      completion: "2024-06",
+      developer: "Commercial Properties Ltd",
+      specifications: ["Raised Floors", "Fiber Optics", "Central HVAC"],
+      facilities: ["Loading Bay", "Security Post", "Power Plant"],
       phoneNumber: "+2341234567890"
     },
     {
-      id: 'land-2',
-      title: "Residential Land in Ikoyi",
-      size: "500 sqm",
-      price: "₦120M",
-      location: "Ikoyi, Lagos",
-      features: ["Governor's Consent", "Serene Environment", "Gated Estate"],
-      description: "Beautiful residential plot in a secure, gated community. Perfect for building your dream home.",
-      amenities: ["Estate Security", "Underground Drainage", "Recreational Areas"],
-      image: "/land/land2.jpg",
-      category: "Residential",
-      gallery: ["/land/ikoyi-1.jpg", "/land/ikoyi-2.jpg"],
+      id: 'const-3',
+      title: "Shopping Mall Development",
+      size: "15000 sqm",
+      price: "₦2.5B",
+      location: "Ikeja, Lagos",
+      features: [
+        "Multiple Retail Spaces",
+        "Entertainment Zone",
+        "Food Court"
+      ],
+      description: "Large-scale retail development with diverse shopping and entertainment options.",
+      amenities: ["Parking Complex", "Children's Play Area", "Cinema"],
+      image: "/construction/mall.jpg",
+      gallery: ["/construction/mall-1.jpg", "/construction/mall-2.jpg"],
       status: "Under Contract",
-      documents: ["Governor's Consent", "Survey Plan"],
-      utilities: ["Water", "Electricity", "Gas"],
-      zoning: "Residential",
-      topography: "Gentle Slope",
-      phoneNumber: "+2341234567890"
-    },
-    {
-      id: 'land-3',
-      title: "Waterfront Plot in Banana Island",
-      size: "1200 sqm",
-      price: "₦350M",
-      location: "Banana Island, Lagos",
-      features: ["C of O Available", "Waterfront", "Premium Location"],
-      description: "Exclusive waterfront plot in Nigeria's most prestigious neighborhood. Rare investment opportunity.",
-      amenities: ["Private Jetty Access", "24/7 Security", "Underground Utilities"],
-      image: "/land/land3.jpg",
-      category: "Premium",
-      gallery: ["/land/banana-1.jpg", "/land/banana-2.jpg"],
-      status: "Available",
-      documents: ["C of O", "Survey Plan", "Site Plan"],
-      utilities: ["Water", "Electricity", "Gas", "Internet"],
-      zoning: "Residential",
-      topography: "Waterfront",
+      documents: ["Building Permit", "Safety Certification"],
+      propertyType: "Commercial",
+      stage: "Ongoing",
+      completion: "2025-03",
+      developer: "Retail Developers Ltd",
+      specifications: ["High Ceilings", "Modern HVAC", "Fire Systems"],
+      facilities: ["Loading Docks", "Service Elevators", "Waste Management"],
       phoneNumber: "+2341234567890"
     }
   ]
@@ -180,32 +150,33 @@ export default function LandPage() {
     "Above ₦200M"
   ]
 
-  const categories = [
+  const projectTypes = [
     "All",
     "Residential",
     "Commercial",
-    "Premium",
+    "Mixed Use",
     "Industrial"
   ]
 
   const statusOptions = [
     "All",
     "Available",
-    "Under Contract",
+    "Under Construction",
+    "Completed",
     "Sold"
   ]
 
   useEffect(() => {
     setTimeout(() => setIsLoading(false), 1500)
 
-    let filtered = [...landListings]
+    let filtered = [...constructionListings]
     
     if (searchQuery) {
       filtered = filtered.filter(property => 
         property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         property.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        property.category.toLowerCase().includes(searchQuery.toLowerCase())
+        property.propertyType.toLowerCase().includes(searchQuery.toLowerCase())
       )
     }
 
@@ -213,16 +184,8 @@ export default function LandPage() {
       filtered = filtered.filter(property => property.location === selectedLocation)
     }
 
-    if (selectedCategory !== 'All') {
-      filtered = filtered.filter(property => property.category === selectedCategory)
-    }
-
-    if (priceRange !== 'All') {
-      const [min, max] = getPriceRange(priceRange)
-      filtered = filtered.filter(property => {
-        const price = parseInt(property.price.replace('₦', '').replace('M', ''))
-        return price >= min && (max === Infinity || price <= max)
-      })
+    if (selectedProjectType !== 'All') {
+      filtered = filtered.filter(property => property.propertyType === selectedProjectType)
     }
 
     if (selectedStatus !== 'All') {
@@ -230,7 +193,7 @@ export default function LandPage() {
     }
 
     setFilteredListings(filtered)
-  }, [searchQuery, selectedLocation, selectedCategory, priceRange, selectedStatus])
+  }, [searchQuery, selectedLocation, selectedProjectType, selectedStatus])
 
   useEffect(() => {
     if (selectedProperty) {
@@ -259,8 +222,7 @@ export default function LandPage() {
       name,
       filters: {
         location: selectedLocation,
-        category: selectedCategory,
-        priceRange,
+        propertyType: selectedProjectType,
         status: selectedStatus
       }
     }
@@ -270,48 +232,37 @@ export default function LandPage() {
 
   const loadSavedSearch = (search: { filters: any }) => {
     setSelectedLocation(search.filters.location)
-    setSelectedCategory(search.filters.category)
-    setPriceRange(search.filters.priceRange)
+    setSelectedProjectType(search.filters.propertyType)
     setSelectedStatus(search.filters.status)
   }
 
-  const getPriceRange = (range: string): [number, number] => {
-    switch (range) {
-      case 'Below ₦50M': return [0, 50]
-      case '₦50M - ₦100M': return [50, 100]
-      case '₦100M - ₦200M': return [100, 200]
-      case 'Above ₦200M': return [200, Infinity]
-      default: return [0, Infinity]
-    }
-  }
-
   const handlePropertySelect = (property: BaseProperty) => {
-    const landProperty = property as LandProperty
-    setSelectedProperty(landProperty)
+    const constProperty = property as ConstructionProperty
+    setSelectedProperty(constProperty)
   }
 
   const renderExtraInfo = (property: BaseProperty) => {
-    const landProperty = property as LandProperty
+    const constProperty = property as ConstructionProperty
     return (
       <>
         <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Property Details</div>
+          <div className="text-sm text-white/60 mb-2">Project Details</div>
           <div className="space-y-2">
             <div className="flex items-center text-white/80">
               <FaBuilding className="text-primary-gold mr-2" />
-              {landProperty.category}
+              {constProperty.propertyType}
             </div>
             <div className="flex items-center text-white/80">
-              <FaMountain className="text-primary-gold mr-2" />
-              {landProperty.topography}
+              <FaHardHat className="text-primary-gold mr-2" />
+              Stage: {constProperty.stage}
             </div>
             <div className="flex items-center text-white/80">
-              <FaTools className="text-primary-gold mr-2" />
-              {landProperty.utilities.join(', ')}
+              <FaClock className="text-primary-gold mr-2" />
+              Completion: {constProperty.completion}
             </div>
             <div className="flex items-center text-white/80">
-              <FaMapMarkerAlt className="text-primary-gold mr-2" />
-              {landProperty.zoning}
+              <FaCertificate className="text-primary-gold mr-2" />
+              {constProperty.specifications.length} Specifications
             </div>
           </div>
         </div>
@@ -320,41 +271,51 @@ export default function LandPage() {
   }
 
   const renderCompareExtraInfo = (property: BaseProperty) => {
-    const landProperty = property as LandProperty
+    const constProperty = property as ConstructionProperty
     return (
       <>
         <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Category</div>
-          <div className="text-white/80">{landProperty.category}</div>
+          <div className="text-sm text-white/60 mb-2">Property Type</div>
+          <div className="text-white/80">{constProperty.propertyType}</div>
         </div>
         <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Topography</div>
-          <div className="text-white/80">{landProperty.topography}</div>
+          <div className="text-sm text-white/60 mb-2">Construction Stage</div>
+          <div className="text-white/80">{constProperty.stage}</div>
         </div>
         <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Utilities</div>
+          <div className="text-sm text-white/60 mb-2">Developer</div>
+          <div className="text-white/80">{constProperty.developer}</div>
+        </div>
+        <div className="mt-4">
+          <div className="text-sm text-white/60 mb-2">Specifications</div>
           <div className="flex flex-wrap gap-2">
-            {landProperty.utilities.map((utility, index) => (
+            {constProperty.specifications.map((spec, index) => (
               <span key={index} className="bg-primary-gold/10 text-primary-gold px-2 py-1 rounded-full text-xs">
-                {utility}
+                {spec}
               </span>
             ))}
           </div>
         </div>
         <div className="mt-4">
-          <div className="text-sm text-white/60 mb-2">Zoning</div>
-          <div className="text-white/80">{landProperty.zoning}</div>
+          <div className="text-sm text-white/60 mb-2">Facilities</div>
+          <div className="flex flex-wrap gap-2">
+            {constProperty.facilities.map((facility, index) => (
+              <span key={index} className="bg-primary-gold/10 text-primary-gold px-2 py-1 rounded-full text-xs">
+                {facility}
+              </span>
+            ))}
+          </div>
         </div>
       </>
     )
   }
 
-  const shareListing = (property: LandProperty) => {
+  const shareListing = (property: ConstructionProperty) => {
     setSelectedProperty(property)
     if (navigator.share) {
       navigator.share({
         title: property.title,
-        text: `Check out this property: ${property.title} in ${property.location}`,
+        text: `Check out this construction project: ${property.title} in ${property.location}`,
         url: window.location.href
       })
     } else {
@@ -367,61 +328,58 @@ export default function LandPage() {
       <MotionBackground />
       
       {/* Hero Section */}
-      <section className="pt-32 pb-16 relative">
+      <motion.section 
+        className="pt-32 pb-16 relative"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
             className="text-center max-w-4xl mx-auto"
+            variants={itemVariants}
           >
             <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-gradient"
-              initial={{ scale: 0.95, opacity: 0 }}
+              className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-yellow-500 to-primary-gold"
+              initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
+              transition={{ 
+                type: "spring",
+                stiffness: 200,
+                damping: 15
+              }}
             >
-              Premium Land Properties
+              Construction Projects
             </motion.h1>
             <motion.p 
-              className="text-lg text-white/90 mb-8"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.2, duration: 0.5 }}
+              className="text-xl text-white/90 mb-8 leading-relaxed"
+              variants={itemVariants}
             >
-              Discover prime land opportunities in Nigeria's most sought-after locations
+              Explore ongoing and upcoming construction projects across Nigeria
             </motion.p>
 
-            {/* Search and Filter Section */}
-            <motion.div
-              className="bg-primary-black/50 p-6 rounded-lg border border-primary-gold/20 backdrop-blur-sm"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <PropertyFilter
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                selectedLocation={selectedLocation}
-                setSelectedLocation={setSelectedLocation}
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                selectedProjectType={selectedCategory}
-                setSelectedProjectType={setSelectedCategory}
-                selectedStatus={selectedStatus}
-                setSelectedStatus={setSelectedStatus}
-                locations={locations.map(loc => ({ value: loc, label: loc }))}
-                priceRanges={priceRanges.map(range => ({ value: range, label: range }))}
-                projectTypes={categories.map(cat => ({ value: cat, label: cat }))}
-                statusOptions={statusOptions.map(status => ({ value: status, label: status }))}
-                filteredProperties={filteredListings}
-                recentlyViewed={recentlyViewed}
-                onPropertySelect={handlePropertySelect}
-              />
-            </motion.div>
+            <PropertyFilter
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
+              priceRange={priceRange}
+              setPriceRange={setPriceRange}
+              selectedProjectType={selectedProjectType}
+              setSelectedProjectType={setSelectedProjectType}
+              selectedStatus={selectedStatus}
+              setSelectedStatus={setSelectedStatus}
+              locations={locations.map(loc => ({ value: loc, label: loc }))}
+              priceRanges={priceRanges.map(range => ({ value: range, label: range }))}
+              projectTypes={projectTypes.map(type => ({ value: type, label: type }))}
+              statusOptions={statusOptions.map(status => ({ value: status, label: status }))}
+              filteredProperties={filteredListings}
+              recentlyViewed={recentlyViewed}
+              onPropertySelect={handlePropertySelect}
+            />
           </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Properties Grid */}
       <motion.section 
@@ -502,7 +460,7 @@ export default function LandPage() {
         isOpen={showCompareDrawer}
         onClose={() => setShowCompareDrawer(false)}
         properties={selectedProperties.map(id => 
-          landListings.find(p => p.id === id)! as BaseProperty
+          constructionListings.find(p => p.id === id)! as BaseProperty
         )}
         extraInfo={renderCompareExtraInfo}
       />
@@ -532,7 +490,7 @@ export default function LandPage() {
               exit={{ scale: 0.9, opacity: 0 }}
               onClick={e => e.stopPropagation()}
             >
-              <h3 className="text-2xl font-bold text-white mb-6">Share Property</h3>
+              <h3 className="text-2xl font-bold text-white mb-6">Share Project</h3>
               
               <div className="grid grid-cols-2 gap-4">
                 <button
@@ -540,7 +498,7 @@ export default function LandPage() {
                     rounded-lg hover:bg-[#128C7E] transition-all duration-300"
                   onClick={() => {
                     window.open(
-                      `https://wa.me/?text=Check out this property: ${selectedProperty.title} in ${selectedProperty.location} - ${window.location.href}`,
+                      `https://wa.me/?text=Check out this construction project: ${selectedProperty.title} in ${selectedProperty.location} - ${window.location.href}`,
                       '_blank'
                     )
                     setShowShareModal(false)
@@ -608,22 +566,16 @@ export default function LandPage() {
                 <div>
                   <div className="text-white/60 mb-2">Current Filters</div>
                   <div className="space-y-2">
-                    {selectedLocation !== 'Location' && (
+                    {selectedLocation !== 'All' && (
                       <div className="flex items-center text-white/80">
                         <FaMapMarkerAlt className="text-primary-gold mr-2" />
                         Location: {selectedLocation}
                       </div>
                     )}
-                    {selectedCategory !== 'Category' && (
+                    {selectedProjectType !== 'All' && (
                       <div className="flex items-center text-white/80">
                         <FaBuilding className="text-primary-gold mr-2" />
-                        Category: {selectedCategory}
-                      </div>
-                    )}
-                    {priceRange !== 'Price Range' && (
-                      <div className="flex items-center text-white/80">
-                        <FaRuler className="text-primary-gold mr-2" />
-                        Price: {priceRange}
+                        Property Type: {selectedProjectType}
                       </div>
                     )}
                   </div>

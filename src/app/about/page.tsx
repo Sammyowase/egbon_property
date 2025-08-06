@@ -2,6 +2,9 @@
 
 import { motion } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
+import EnhancedBackground from '@/components/ui/EnhancedBackground'
+import PageWrapper from '@/components/ui/PageWrapper'
+import EnhancedSection from '@/components/ui/EnhancedSection'
 import { FaTrophy, FaHandshake, FaHome, FaChartLine, FaUsers, FaGem, FaPlay, FaLinkedin, FaTwitter, FaInstagram } from 'react-icons/fa'
 import { useState } from 'react'
 import Image from 'next/image'
@@ -109,7 +112,7 @@ export default function AboutPage() {
   }
 
   return (
-    <>
+    <PageWrapper backgroundVariant="default">
       <MotionBackground />
       
       {/* Video Modal */}
@@ -140,16 +143,16 @@ export default function AboutPage() {
       )}
       
       {/* Hero Section */}
-      <section className="pt-32 pb-16 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <EnhancedSection variant="hero" backgroundPattern>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.8 }}
             className="text-center max-w-4xl mx-auto"
           >
             <motion.h1 
-              className="text-4xl md:text-5xl font-bold mb-6 text-gradient"
+              className="heading-display mb-8 luxury-gradient-text"
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.5 }}
@@ -157,155 +160,202 @@ export default function AboutPage() {
               Our Story
             </motion.h1>
             <motion.p 
-              className="text-lg text-white/90 mb-8"
+              className="body-luxury text-white/90 mb-12 leading-relaxed"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Setting the standard for luxury real estate in Nigeria with unparalleled service and exceptional properties
+              Setting the standard for luxury real estate in Nigeria with unparalleled service and exceptional properties. 
+              We transform visions into reality, creating spaces that elevate lifestyles and build tomorrow's communities.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="relative h-64 md:h-96 rounded-lg overflow-hidden group cursor-pointer"
+              className="relative h-64 md:h-96 rounded-2xl overflow-hidden group cursor-pointer glass-morphism"
               onClick={() => setShowVideo(true)}
+              whileHover={{ scale: 1.02 }}
             >
-              <div className="absolute inset-0 bg-primary-gold/20" />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary-black to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 via-transparent to-primary-blue-light/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary-black/80 via-transparent to-transparent" />
               <motion.div
                 className="absolute inset-0 flex items-center justify-center"
                 initial={{ opacity: 0.8 }}
                 whileHover={{ opacity: 1 }}
               >
                 <motion.div
-                  className="flex items-center gap-4 bg-primary-black/60 px-6 py-3 rounded-full border border-primary-gold/20"
-                  whileHover={{ scale: 1.05, backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+                  className="flex items-center gap-6 glass-morphism-gold px-8 py-4 rounded-full"
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   <motion.div
-                    className="w-12 h-12 rounded-full bg-primary-gold flex items-center justify-center"
-                    whileHover={{ scale: 1.1 }}
+                    className="w-16 h-16 rounded-full bg-primary-gold flex items-center justify-center glow-gold-intense"
+                    whileHover={{ scale: 1.1, rotate: 5 }}
                     whileTap={{ scale: 0.9 }}
+                    animate={{
+                      boxShadow: [
+                        "0 0 20px rgba(212, 175, 55, 0.3)",
+                        "0 0 30px rgba(212, 175, 55, 0.5)",
+                        "0 0 20px rgba(212, 175, 55, 0.3)"
+                      ]
+                    }}
+                    transition={{
+                      duration: 2,
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
                   >
-                    <FaPlay className="text-primary-black text-xl ml-1" />
+                    <FaPlay className="text-primary-black text-2xl ml-1" />
                   </motion.div>
-                  <span className="text-white text-lg font-semibold">Watch Our Story</span>
+                  <div className="text-left">
+                    <span className="text-white text-xl font-bold block">Watch Our Story</span>
+                    <span className="text-white/70 text-sm">Discover our journey</span>
+                  </div>
                 </motion.div>
               </motion.div>
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </EnhancedSection>
 
       {/* Stats Section */}
-      <motion.section 
-        className="py-16 bg-primary-black/95"
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-      >
+      <EnhancedSection variant="feature" backgroundPattern>
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          whileInView="animate"
+          viewport={{ once: true }}
+        >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
                 whileHover={{ 
-                  y: -5,
-                  transition: { duration: 0.2 }
+                  y: -8,
+                  scale: 1.02,
+                  transition: { duration: 0.3 }
                 }}
-                className={`relative p-8 rounded-lg bg-gradient-to-br ${stat.color} bg-opacity-5 backdrop-blur-sm
-                  border border-primary-gold/10 shadow-lg hover:shadow-2xl hover:border-primary-gold/20
-                  transform transition-all duration-300`}
+                className={`glass-morphism-${index % 2 === 0 ? 'gold' : 'blue'} p-8 rounded-2xl text-center card-3d group relative overflow-hidden`}
               >
-                <div className="absolute inset-0 bg-primary-black/60 rounded-lg -z-10" />
+                <div className="absolute top-0 right-0 w-24 h-24 bg-primary-gold/5 rounded-full -translate-y-12 translate-x-12 group-hover:scale-150 transition-transform duration-700" />
+                
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileHover={{ scale: 1.2, rotate: 10 }}
                   transition={{ type: "spring", stiffness: 300 }}
-                  className="text-primary-gold text-4xl mb-4"
+                  className={`text-${index % 2 === 0 ? 'primary-gold' : 'primary-blue-light'} text-5xl mb-6 flex justify-center relative z-10`}
                 >
                   <stat.icon />
                 </motion.div>
+                
                 <motion.div 
-                  className="text-3xl font-bold text-white mb-2"
+                  className="text-4xl font-bold text-white mb-3 relative z-10"
                   initial={{ opacity: 0, scale: 0.5 }}
                   whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 + 0.2 }}
+                  whileHover={{ scale: 1.1 }}
                 >
                   {stat.number}
                 </motion.div>
-                <div className="text-white/70">{stat.text}</div>
+                
+                <div className="text-white/80 font-medium relative z-10">{stat.text}</div>
+                
+                {/* Animated Progress Bar */}
+                <motion.div
+                  className="mt-4 h-1 bg-white/10 rounded-full overflow-hidden relative z-10"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 + 0.5, duration: 1 }}
+                >
+                  <motion.div
+                    className={`h-full bg-gradient-to-r ${index % 2 === 0 ? 'from-primary-gold to-primary-gold-accent' : 'from-primary-blue-light to-primary-blue-accent'}`}
+                    initial={{ scaleX: 0 }}
+                    whileInView={{ scaleX: 1 }}
+                    viewport={{ once: true }}
+                    style={{ transformOrigin: 'left' }}
+                    transition={{ delay: index * 0.2 + 0.8, duration: 1.5 }}
+                  />
+                </motion.div>
               </motion.div>
             ))}
           </div>
         </div>
-      </motion.section>
+        </motion.div>
+      </EnhancedSection>
 
       {/* Values Section */}
-      <motion.section 
-        className="py-16"
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-      >
+      <EnhancedSection variant="default">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold mb-12 text-center text-gradient"
+            transition={{ duration: 0.8 }}
+            className="heading-display mb-16 text-center luxury-gradient-mixed"
           >
             Our Core Values
           </motion.h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
             {values.map((value, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.2 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
                 whileHover={{ 
-                  y: -5,
-                  transition: { duration: 0.2 }
+                  y: -10,
+                  scale: 1.02,
+                  transition: { duration: 0.3 }
                 }}
-                className={`relative p-8 rounded-lg bg-gradient-to-br ${value.color} bg-opacity-5 backdrop-blur-sm
-                  border border-primary-gold/10 shadow-lg hover:shadow-2xl hover:border-primary-gold/20
-                  transform transition-all duration-300 text-center`}
+                className="glass-morphism-gold p-10 rounded-2xl text-center card-3d group relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-primary-black/60 rounded-lg -z-10" />
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary-gold/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700" />
+                
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                  className="text-primary-gold text-4xl mb-6 mx-auto"
+                  whileHover={{ scale: 1.2, rotate: 360 }}
+                  transition={{ duration: 0.8 }}
+                  className="text-primary-gold text-6xl mb-8 mx-auto relative z-10"
                 >
                   <value.icon />
                 </motion.div>
-                <h3 className="text-xl font-bold mb-4 text-white">{value.title}</h3>
-                <p className="text-white/80">{value.description}</p>
+                
+                <h3 className="text-2xl font-bold mb-6 text-white group-hover:luxury-gradient-text transition-all duration-300 relative z-10">
+                  {value.title}
+                </h3>
+                
+                <p className="text-white/80 leading-relaxed relative z-10">
+                  {value.description}
+                </p>
+                
+                {/* Decorative Element */}
+                <motion.div
+                  className="absolute bottom-4 left-1/2 transform -translate-x-1/2 w-12 h-1 bg-gradient-to-r from-primary-gold to-primary-blue-light rounded-full"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.2 + 0.5, duration: 0.8 }}
+                />
               </motion.div>
             ))}
           </div>
         </div>
-      </motion.section>
+      </EnhancedSection>
 
       {/* Team Section */}
-      <motion.section 
-        className="py-16 bg-primary-black/95"
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
-      >
+      <EnhancedSection variant="testimonial" backgroundPattern>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-4xl font-bold mb-12 text-center text-gradient"
+            transition={{ duration: 0.8 }}
+            className="heading-display mb-16 text-center luxury-gradient-blue"
           >
             Meet Our Team
           </motion.h2>
@@ -381,7 +431,7 @@ export default function AboutPage() {
             ))}
           </div>
         </div>
-      </motion.section>
-    </>
+      </EnhancedSection>
+    </PageWrapper>
   )
 } 

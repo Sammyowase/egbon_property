@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
+import PageWrapper from '@/components/ui/PageWrapper'
+import EnhancedSection from '@/components/ui/EnhancedSection'
 import { FaTree, FaMapMarkerAlt, FaSearch, FaWater, FaSun, FaLeaf, FaTractor, FaMountain, FaRoad, FaSeedling, FaTrash, FaWhatsapp, FaShare, FaRuler, FaSave, FaExchangeAlt, FaFilter, FaMoneyBillWave, FaCertificate } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
@@ -408,7 +410,7 @@ export default function FarmlandPage() {
   }
 
   return (
-    <>
+    <PageWrapper backgroundVariant="default">
       <MotionBackground />
       
       {/* Hero Section */}
@@ -691,6 +693,6 @@ export default function FarmlandPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </PageWrapper>
   )
 } 

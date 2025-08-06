@@ -1,23 +1,58 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Montserrat } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AudioBackground from "@/components/AudioBackground";
+import ErrorBoundary from "@/components/ui/ErrorBoundary";
+import StructuredData from "@/components/seo/StructuredData";
+import Analytics from "@/components/seo/Analytics";
+import LoadingProvider from "@/components/providers/LoadingProvider";
+import CustomCursor from "@/components/ui/CustomCursor";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
-});
 
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  variable: "--font-montserrat",
-});
 
 export const metadata: Metadata = {
-  title: "Luxury Estates - Premium Real Estate",
-  description: "Discover luxury properties, land, and exclusive real estate opportunities.",
+  metadataBase: new URL('https://vistagranderealty.com'),
+  title: "Vista Grande Realty LTD - Where Vision Meets Value",
+  description: "Transforming Spaces. Elevating Lifestyles. Building Tomorrow. Premium real estate developments across Nigeria starting from Ibadan.",
+  keywords: "Vista Grande, real estate, luxury properties, Nigeria, Ibadan, Lagos, Ogun, Oyo, residential development, commercial properties, investment",
+  authors: [{ name: "Vista Grande Realty LTD" }],
+  creator: "Vista Grande Realty LTD",
+  publisher: "Vista Grande Realty LTD",
+  openGraph: {
+    title: "Vista Grande Realty LTD - Where Vision Meets Value",
+    description: "Transforming Spaces. Elevating Lifestyles. Building Tomorrow.",
+    url: "https://vistagranderealty.com",
+    siteName: "Vista Grande Realty LTD",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Vista Grande Realty LTD",
+      },
+    ],
+    locale: "en_NG",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Vista Grande Realty LTD - Where Vision Meets Value",
+    description: "Transforming Spaces. Elevating Lifestyles. Building Tomorrow.",
+    images: ["/twitter-image.jpg"],
+    creator: "@vistagranderealty",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -26,14 +61,48 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${montserrat.variable}`}>
-      <body className={`font-sans bg-primary-black text-white min-h-screen flex flex-col`}>
-        <Navbar />
-        <AudioBackground />
-        <main className="flex-grow">
-          {children}
-        </main>
-        <Footer />
+    <html lang="en">
+      <head>
+        <StructuredData
+          type="Organization"
+          data={{
+            streetAddress: "Ibadan, Oyo State",
+            telephone: "+234-XXX-XXX-XXXX"
+          }}
+        />
+        <StructuredData type="WebSite" data={{}} />
+        <Analytics
+          googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+          facebookPixelId={process.env.NEXT_PUBLIC_FB_PIXEL_ID}
+        />
+      </head>
+      <body className="font-sans luxury-bg-gradient luxury-bg-pattern text-white min-h-screen flex flex-col relative">
+        {/* Enhanced Background Elements */}
+        <div className="floating-orbs">
+          <div className="orb orb-1"></div>
+          <div className="orb orb-2"></div>
+          <div className="orb orb-3"></div>
+        </div>
+        <div className="luxury-bg-mesh fixed inset-0 pointer-events-none z-0"></div>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-gold text-primary-black px-4 py-2 rounded-md z-50"
+        >
+          Skip to main content
+        </a>
+        <LoadingProvider>
+          <CustomCursor enabled={true} trailLength={8} />
+          <ErrorBoundary>
+            <div className="relative z-10">
+              <Navbar />
+              <AudioBackground />
+              <main id="main-content" className="flex-grow relative z-10" role="main">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </ErrorBoundary>
+        </LoadingProvider>
       </body>
     </html>
   );

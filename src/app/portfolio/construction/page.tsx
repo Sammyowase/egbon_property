@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
+import PageWrapper from '@/components/ui/PageWrapper'
+import EnhancedSection from '@/components/ui/EnhancedSection'
 import { FaBuilding, FaHardHat, FaClock, FaCertificate, FaSave, FaExchangeAlt, FaWhatsapp, FaShare, FaMapMarkerAlt, FaRuler, FaTools, FaSearch, FaFilter, FaMoneyBillWave } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import { ConstructionProperty, BaseProperty } from '@/types/property'
@@ -324,7 +326,7 @@ export default function ConstructionPage() {
   }
 
   return (
-    <>
+    <PageWrapper backgroundVariant="default">
       <MotionBackground />
       
       {/* Hero Section */}
@@ -601,6 +603,6 @@ export default function ConstructionPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </PageWrapper>
   )
 } 

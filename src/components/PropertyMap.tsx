@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Wrapper } from '@googlemaps/react-wrapper'
+import { PropertyLoadingSpinner } from './ui/LuxuryLoadingSpinner'
+import ErrorBoundary from './ui/ErrorBoundary'
 
 interface Property {
   title: string;
@@ -22,12 +24,14 @@ function MapComponent({ properties }: PropertyMapProps) {
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [markers, setMarkers] = useState<google.maps.Marker[]>([]);
   const [activeInfoWindow, setActiveInfoWindow] = useState<google.maps.InfoWindow | null>(null);
+  
 
   useEffect(() => {
     if (!mapRef.current) return;
+    if (!window.google || !window.google.maps) return;
 
     const initialMap = new google.maps.Map(mapRef.current, {
-      center: { lat: 6.5244, lng: 3.3792 }, // Lagos coordinates
+     center: { lat: 7.4388, lng: 3.8270 }, //Ibadan  coordinates
       zoom: 10,
       styles: [
         {
@@ -108,10 +112,57 @@ function MapComponent({ properties }: PropertyMapProps) {
   return <div ref={mapRef} className="w-full h-full rounded-lg" />;
 }
 
-export default function PropertyMap({ properties }: PropertyMapProps) {
+function MapLoadingFallback() {
   return (
-    <Wrapper apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
-      <MapComponent properties={properties} />
-    </Wrapper>
-  );
-} 
+    <div className="w-full h-[400px] glass-morphism-gold rounded-lg flex items-center justify-center">
+      <PropertyLoadingSpinner
+        size="lg"
+        message="Loading interactive map..."
+      />
+    </div>
+  )
+}
+
+function MapErrorFallback() {
+  return (
+    <div className="w-full h-full bg-primary-gold/10 rounded-lg flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-red-500/20 flex items-center justify-center">
+          <span className="text-red-400 text-2xl">⚠</span>
+        </div>
+        <p className="text-white/70">Unable to load map</p>
+        <p className="text-white/50 text-sm mt-2">Please check your connection</p>
+      </div>
+    </div>
+  )
+}
+
+export default function PropertyMap({ properties }: PropertyMapProps) {
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+
+  if (!apiKey) {
+    return (
+      <div className="w-full h-full bg-primary-gold/10 rounded-lg flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-500/20 flex items-center justify-center">
+            <span className="text-yellow-400 text-2xl">⚙</span>
+          </div>
+          <p className="text-white/70">Map configuration required</p>
+          <p className="text-white/50 text-sm mt-2">Google Maps API key not found</p>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <ErrorBoundary fallback={<MapErrorFallback />}>
+      <Wrapper
+        apiKey={apiKey}
+        render={MapLoadingFallback}
+        libraries={['places']}
+      >
+        <MapComponent properties={properties} />
+      </Wrapper>
+    </ErrorBoundary>
+  )
+}

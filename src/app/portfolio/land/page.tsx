@@ -2,6 +2,8 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
+import PageWrapper from '@/components/ui/PageWrapper'
+import EnhancedSection from '@/components/ui/EnhancedSection'
 import { FaRuler, FaMapMarkerAlt, FaTree, FaRoad, FaWater, FaCertificate, FaSearch, FaFilter, FaArrowRight, FaInfoCircle, FaPhone, FaWhatsapp, FaCheck, FaImage, FaTrash, FaExchangeAlt, FaSave, FaShare, FaBuilding, FaMountain, FaTools } from 'react-icons/fa'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
@@ -363,7 +365,7 @@ export default function LandPage() {
   }
 
   return (
-    <>
+    <PageWrapper backgroundVariant="default">
       <MotionBackground />
       
       {/* Hero Section */}
@@ -649,6 +651,6 @@ export default function LandPage() {
           </motion.div>
         )}
       </AnimatePresence>
-    </>
+    </PageWrapper>
   )
 } 

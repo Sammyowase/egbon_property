@@ -2,6 +2,8 @@
 
 import { motion } from 'framer-motion'
 import MotionBackground from '@/components/MotionBackground'
+import PageWrapper from '@/components/ui/PageWrapper'
+import EnhancedSection from '@/components/ui/EnhancedSection'
 import { useState } from 'react'
 import Image from 'next/image'
 import { FaCalendar, FaUser, FaTag, FaArrowRight, FaClock, FaHeart } from 'react-icons/fa'
@@ -74,7 +76,7 @@ export default function NewsPage() {
   }
 
   return (
-    <>
+    <PageWrapper backgroundVariant="default">
       <MotionBackground />
       
       {/* Hero Section */}
@@ -271,6 +273,6 @@ export default function NewsPage() {
           </div>
         </div>
       </section>
-    </>
+    </PageWrapper>
   )
 } 

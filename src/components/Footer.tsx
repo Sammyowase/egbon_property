@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa'
 
@@ -41,21 +42,31 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-primary-black border-t border-primary-gold/20">
+    <footer className="bg-primary-black border-t border-primary-gold/20 relative z-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand Section */}
           <div className="space-y-4">
             <Link href="/" className="block">
-              <motion.h2 
-                className="text-2xl font-bold text-primary-gold"
+              <motion.div
+                className="relative"
                 whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
               >
-               VISTA GRAND
-              </motion.h2>
+                <Image
+                  src="/logo/Vistagrand White@1x.png"
+                  alt="Vista Grande Realty LTD - Luxury Real Estate"
+                  width={160}
+                  height={53}
+                  className="h-10 w-auto object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 2px 8px rgba(234, 179, 8, 0.3))'
+                  }}
+                />
+              </motion.div>
             </Link>
             <p className="text-white/70">
-              Discover exceptional properties and premium real estate opportunities.
+              Where Vision Meets Value. Transforming Spaces. Elevating Lifestyles. Building Tomorrow.
             </p>
             <div className="flex space-x-4">
               {socialLinks.map((social, index) => {
@@ -99,7 +110,7 @@ const Footer = () => {
         <div className="mt-12 pt-8 border-t border-primary-gold/10">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-white/70 text-sm">
-              © {new Date().getFullYear()} Luxury Estates. All rights reserved.
+              © {new Date().getFullYear()} Vista Grande Realty LTD. All rights reserved.
             </p>
             <div className="mt-4 md:mt-0">
               <motion.button

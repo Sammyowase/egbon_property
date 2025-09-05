@@ -657,7 +657,7 @@ export default function HomePage() {
       </motion.section>
 
       {/* WHO WE ARE SECTION - Grand & Luxurious */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
@@ -732,7 +732,7 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES SECTION - Grand & Luxurious */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
@@ -861,7 +861,7 @@ export default function HomePage() {
       </section>
 
       {/* WHY CHOOSE VISTA GRANDE SECTION - Grand & Luxurious */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
@@ -978,7 +978,7 @@ export default function HomePage() {
       </section>
 
       {/* FEATURED PROPERTIES SECTION - Premium Showcase */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Background with similar treatment to other sections */}
         <div className="absolute inset-0 z-0">
           <img
@@ -1216,7 +1216,7 @@ export default function HomePage() {
       </section>
 
       {/* TESTIMONIALS SECTION - Elegant & Premium */}
-      <section className="py-32 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Background with similar treatment to other sections */}
         <div className="absolute inset-0 z-0">
           <img
@@ -1341,7 +1341,7 @@ export default function HomePage() {
       </section>
       
       {/* CALL TO ACTION SECTION - Bold & Premium */}
-      <section className="py-24 relative overflow-hidden">
+      <section className="py-20 relative overflow-hidden">
         {/* Background with similar treatment to other sections */}
         <div className="absolute inset-0 z-0">
           <img

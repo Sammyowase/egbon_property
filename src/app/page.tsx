@@ -987,7 +987,7 @@ export default function HomePage() {
       />
 
       {/* VIRTUAL TOUR SECTION - Enhanced Interactive Experience */}
-      <ParallaxSection className="py-24">
+      {/* <ParallaxSection className="py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <ScrollReveal direction="left">
@@ -1131,363 +1131,201 @@ export default function HomePage() {
             </motion.div>
           </div>
         </div>
-      </ParallaxSection>
+      </ParallaxSection> */}
 
-      {/* WHY CHOOSE US SECTION - Premium Cards */}
-      <motion.section
-        className="py-24 relative"
-        variants={staggerChildren}
-        initial="initial"
-        animate="animate"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div className="text-center mb-20" variants={fadeInUp}>
-            <h2 className="heading-display mb-8 luxury-gradient-text">
-              Why Choose Vista Grande
-            </h2>
-            <p className="body-luxury text-white/90 max-w-4xl mx-auto">
-              We don't just sell properties; we craft experiences, build relationships, and create lasting value for our clients through unparalleled expertise and dedication.
-            </p>
-          </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <motion.div
-              className="glass-morphism-gold p-10 rounded-2xl text-center card-3d group relative overflow-hidden"
-              variants={cardHover}
-              initial="rest"
-              whileHover="hover"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-gold/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700" />
-              <motion.div 
-                className="text-primary-gold text-6xl mb-8 mx-auto relative z-10"
-                whileHover={{ rotate: 360, scale: 1.2 }}
-                transition={{ duration: 0.8 }}
-              >
-                <FaTrophy />
-              </motion.div>
-              <h3 className="text-2xl font-bold mb-6 text-white group-hover:luxury-gradient-text transition-all duration-300">
-                Premium Properties
-              </h3>
-              <p className="text-white/70 leading-relaxed relative z-10">
-                Access to exclusive luxury properties in prime locations, carefully curated for discerning buyers who demand nothing but the finest.
-              </p>
-            </motion.div>
+    
 
-            <motion.div
-              className="glass-morphism-blue p-10 rounded-2xl text-center card-3d group relative overflow-hidden"
-              variants={cardHover}
-              initial="rest"
-              whileHover="hover"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-blue-light/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700" />
-              <motion.div 
-                className="text-primary-blue-light text-6xl mb-8 mx-auto relative z-10"
-                whileHover={{ rotate: -360, scale: 1.2 }}
-                transition={{ duration: 0.8 }}
-              >
-                <FaHandshake />
-              </motion.div>
-              <h3 className="text-2xl font-bold mb-6 text-white group-hover:luxury-gradient-blue transition-all duration-300">
-                Expert Guidance
-              </h3>
-              <p className="text-white/70 leading-relaxed relative z-10">
-                Our experienced team provides personalized service and expert advice throughout your property journey, ensuring informed decisions.
-              </p>
-            </motion.div>
-
-            <motion.div
-              className="glass-morphism-gold p-10 rounded-2xl text-center card-3d group relative overflow-hidden"
-              variants={cardHover}
-              initial="rest"
-              whileHover="hover"
-            >
-              <div className="absolute top-0 right-0 w-32 h-32 bg-primary-gold/5 rounded-full -translate-y-16 translate-x-16 group-hover:scale-150 transition-transform duration-700" />
-              <motion.div 
-                className="text-primary-gold text-6xl mb-8 mx-auto relative z-10"
-                whileHover={{ rotate: 180, scale: 1.2 }}
-                transition={{ duration: 0.8 }}
-              >
-                <FaUsers />
-              </motion.div>
-              <h3 className="text-2xl font-bold mb-6 text-white group-hover:luxury-gradient-mixed transition-all duration-300">
-                Client Satisfaction
-              </h3>
-              <p className="text-white/70 leading-relaxed relative z-10">
-                Our track record of satisfied clients and successful transactions speaks to our unwavering commitment to excellence and integrity.
-              </p>
-            </motion.div>
-          </div>
+      {/* TESTIMONIALS SECTION - Elegant & Premium */}
+      <section className="py-32 relative overflow-hidden">
+        {/* Background with similar treatment to other sections */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bg/back_.jpeg"
+            alt="Luxury background"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ zIndex: 1 }}
+          />
+          
+          {/* Overlay with same gradient as other sections */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-black/70 via-primary-black/60 to-primary-black/80" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-blue-primary/5 via-transparent to-primary-gold/5" style={{ zIndex: 3 }} />
         </div>
-      </motion.section>
-
-      {/* INTERACTIVE MAP SECTION - Enhanced */}
-      <motion.section 
-        className="py-24 bg-gradient-to-b from-primary-black/95 to-primary-black-light/95"
-        variants={fadeInUp}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center"
-            variants={staggerChildren}
-          >
-            <div>
-              <motion.h2 
-                className="heading-display mb-8 luxury-gradient-blue"
-                variants={fadeInUp}
-              >
-                Find Properties in Prime Locations
-              </motion.h2>
-              <motion.p 
-                className="body-luxury text-white/90 mb-10"
-                variants={fadeInUp}
-              >
-                Explore our interactive map to discover premium properties in the most sought-after neighborhoods. From beachfront villas to urban penthouses, find your perfect location with precision and ease.
-              </motion.p>
-              
-              <motion.div
-                className="space-y-6"
-                variants={staggerChildren}
-              >
-                <StaggerItem>
-                  <motion.div 
-                    className="flex items-center gap-6 text-white/70 group"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="w-16 h-16 rounded-full glass-morphism-gold flex items-center justify-center text-primary-gold group-hover:glow-gold-intense transition-all duration-300">
-                      <FaHome className="text-xl" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-lg mb-2">Premium Locations</h3>
-                      <p className="text-white/70">Properties in the most desirable and rapidly appreciating areas</p>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-
-                <StaggerItem>
-                  <motion.div 
-                    className="flex items-center gap-6 text-white/70 group"
-                    whileHover={{ x: 10 }}
-                  >
-                    <div className="w-16 h-16 rounded-full glass-morphism-blue flex items-center justify-center text-primary-blue-light group-hover:glow-blue-intense transition-all duration-300">
-                      <FaSearch className="text-xl" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-white text-lg mb-2">Smart Search</h3>
-                      <p className="text-white/70">Advanced filtering by location, price, amenities, and investment potential</p>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              </motion.div>
-            </div>
-
-            <motion.div
-              className="relative h-[500px] rounded-2xl overflow-hidden glass-morphism"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.02 }}
-            >
-              <PropertyMap properties={mapProperties} />
-              <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-primary-black/20 via-transparent to-transparent" />
-            </motion.div>
-          </motion.div>
-        </div>
-      </motion.section>
-
-      {/* TESTIMONIALS SECTION - Premium Carousel */}
-      <motion.section
-        className="py-24"
-        variants={staggerChildren}
-        initial="initial"
-        animate="animate"
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div className="text-center mb-20" variants={fadeInUp}>
-            <h2 className="heading-display mb-8 luxury-gradient-text">
-              What Our Clients Say
-            </h2>
-            <p className="body-luxury text-white/90 max-w-3xl mx-auto">
-              Don't just take our word for it. Hear from our satisfied clients who have experienced the Vista Grande difference firsthand.
-            </p>
-          </motion.div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={index}
-                className="glass-morphism p-8 rounded-2xl card-3d group relative overflow-hidden"
-                variants={cardHover}
-                initial="rest"
-                whileHover="hover"
-              >
-                <div className="absolute top-0 left-0 w-20 h-20 bg-primary-gold/5 rounded-full -translate-x-10 -translate-y-10 group-hover:scale-150 transition-transform duration-700" />
-                
-                {/* Rating Stars */}
-                <div className="flex text-primary-gold mb-6 relative z-10">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, scale: 0 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: i * 0.1 }}
-                    >
-                      <FaStar />
-                    </motion.div>
-                  ))}
-                </div>
-
-                <motion.p 
-                  className="text-white/90 mb-8 italic text-lg leading-relaxed relative z-10"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  "{testimonial.text}"
-                </motion.p>
-
-                <motion.div
-                  className="flex items-center gap-4 relative z-10"
-                  whileHover={{ x: 5 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary-gold/30 to-primary-blue-light/30 flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">
-                      {testimonial.author.charAt(0)}
-                    </span>
-                  </div>
-                  <div>
-                    <p className="text-primary-gold font-bold text-lg">{testimonial.author}</p>
-                    <p className="text-white/70">{testimonial.position}</p>
-                  </div>
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </motion.section>
-
-      {/* NEWSLETTER SECTION - Ultra Premium */}
-      <motion.section 
-        className="py-24 bg-gradient-to-b from-primary-black/95 to-primary-black-light/95 relative overflow-hidden"
-        variants={fadeInUp}
-      >
-        {/* Background Elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-20 left-20 w-40 h-40 border border-primary-gold/30 rounded-full animate-pulse-glow" />
-          <div className="absolute bottom-20 right-20 w-32 h-32 border border-primary-blue-light/30 rounded-full animate-bounce-subtle" />
-        </div>
-
+        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <motion.div
-            className="max-w-4xl mx-auto text-center p-12 rounded-3xl glass-morphism relative overflow-hidden"
-            whileHover={{
-              boxShadow: "0 0 60px rgba(212, 175, 55, 0.2)",
-              transition: { duration: 0.3 }
-            }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/5 via-transparent to-primary-blue-light/5" />
-            
-            <motion.h2 
-              className="heading-display mb-8 luxury-gradient-mixed relative z-10"
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.2 }}
-            >
-              Stay Updated with Vista Grande
-            </motion.h2>
-            
-            <motion.p 
-              className="body-luxury text-white/90 mb-12 relative z-10"
-              whileHover={{ y: -2 }}
-            >
-              Subscribe to our exclusive newsletter for premium property listings, market insights, investment opportunities, and insider access to our most coveted developments.
-            </motion.p>
-
-            <form onSubmit={handleSubscribe} className="relative z-10">
-              <motion.div 
-                className="flex flex-col sm:flex-row gap-6 max-w-2xl mx-auto"
-                whileHover={{ y: -5 }}
-                transition={{ duration: 0.2 }}
-              >
-                <div className="flex-1">
-                  <motion.input
-                    type="email"
-                    placeholder="Enter your email address"
-                    className="w-full glass-morphism-gold border border-primary-gold/30 rounded-xl p-4 text-white placeholder-white/50 focus:border-primary-gold focus:ring-2 focus:ring-primary-gold/20 transition-all duration-300 text-lg"
-                    required
-                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    whileFocus={{ scale: 1.02 }}
-                  />
-                  <p className="text-sm text-white/60 mt-3 text-left">
-                    We respect your privacy. Unsubscribe at any time.
-                  </p>
+          <ClientOnly>
+            <ClientStaggerContainer className="text-center max-w-5xl mx-auto mb-16">
+              <ClientStaggerItem>
+                <div className="mb-12">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                      Client Testimonials
+                    </span>
+                  </h2>
                 </div>
-                
-                <motion.button 
-                  type="submit"
-                  className="btn-magnetic px-10 py-4 text-lg rounded-xl font-semibold bg-gradient-to-r from-primary-gold to-primary-gold-accent text-primary-black glow-gold-intense relative overflow-hidden group whitespace-nowrap"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  disabled={isSubscribing}
-                >
-                  <span className="relative z-10 flex items-center gap-3">
-                    {isSubscribing ? (
-                      <>
-                        <MinimalLoadingSpinner size="sm" />
-                        Subscribing...
-                      </>
-                    ) : (
-                      <>
-                        <FaEnvelope />
-                        Subscribe Now
-                      </>
-                    )}
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary-gold-accent to-primary-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </motion.button>
-              </motion.div>
-
-              {/* Success/Error Messages */}
-              {subscriptionStatus === 'success' && (
-                <motion.div
-                  className="mt-6 p-4 rounded-xl glass-morphism-gold text-primary-gold"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  ✓ Successfully subscribed! Welcome to Vista Grande's exclusive community.
-                </motion.div>
-              )}
+              </ClientStaggerItem>
               
-              {subscriptionStatus === 'error' && (
-                <motion.div
-                  className="mt-6 p-4 rounded-xl glass-morphism-blue text-red-400"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  ✗ Something went wrong. Please try again.
-                </motion.div>
-              )}
-            </form>
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.3}>
+                  <p className="text-xl sm:text-2xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto mb-16">
+                    Hear from those who've experienced the Vista Grande difference.
+                  </p>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+            </ClientStaggerContainer>
 
-            {/* Trust Indicators */}
-            <motion.div 
-              className="flex flex-wrap justify-center items-center gap-8 mt-12 text-white/60 relative z-10"
-              variants={staggerChildren}
-            >
-              <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
-                <FaUsers className="text-primary-gold" />
-                <span className="text-sm">10,000+ Subscribers</span>
-              </motion.div>
-              <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
-                <FaTrophy className="text-primary-blue-light" />
-                <span className="text-sm">Premium Content</span>
-              </motion.div>
-              <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
-                <FaHeart className="text-primary-gold" />
-                <span className="text-sm">No Spam Promise</span>
-              </motion.div>
-            </motion.div>
-          </motion.div>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <ClientStaggerItem>
+                  <div className="glass-card p-10 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 relative">
+                    {/* Decorative quote mark */}
+                    <div className="absolute -top-6 -left-2 text-8xl text-primary-gold/20 font-serif">"</div>
+                    
+                    <div className="relative z-10">
+                      <p className="text-xl text-white/90 font-montserrat italic leading-relaxed mb-8">
+                        Investing with Vista Grande was the best decision I made for my family's future. Their attention to detail and commitment to quality is unmatched.
+                      </p>
+                      
+                      <div className="flex items-center">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          <img src="/testimonials/person1.jpg" alt="Adewale A." className="w-full h-full object-cover opacity-80" />
+                        </div>
+                        <div className="ml-4">
+                          <h4 className="text-lg font-cormorant text-primary-gold font-medium">
+                            Adewale A.
+                          </h4>
+                          <p className="text-white/70 text-sm">
+                            Ibadan
+                          </p>
+                        </div>
+                        <div className="ml-auto flex">
+                          <FaStar className="text-primary-gold" />
+                          <FaStar className="text-primary-gold" />
+                          <FaStar className="text-primary-gold" />
+                          <FaStar className="text-primary-gold" />
+                          <FaStar className="text-primary-gold" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ClientStaggerItem>
+
+                <ClientStaggerItem>
+                  <div className="glass-card p-10 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-blue-light/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300 relative">
+                    {/* Decorative quote mark */}
+                    <div className="absolute -top-6 -left-2 text-8xl text-primary-blue-light/20 font-serif">"</div>
+                    
+                    <div className="relative z-10">
+                      <p className="text-xl text-white/90 font-montserrat italic leading-relaxed mb-8">
+                        They're not just developers. They're visionaries. Vista Grande has transformed how I think about property investment in Nigeria.
+                      </p>
+                      
+                      <div className="flex items-center">
+                        <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center flex-shrink-0 overflow-hidden">
+                          <img src="/testimonials/person2.jpg" alt="Ifeoma O." className="w-full h-full object-cover opacity-80" />
+                        </div>
+                        <div className="ml-4">
+                          <h4 className="text-lg font-cormorant text-primary-blue-light font-medium">
+                            Ifeoma O.
+                          </h4>
+                          <p className="text-white/70 text-sm">
+                            Lekki
+                          </p>
+                        </div>
+                        <div className="ml-auto flex">
+                          <FaStar className="text-primary-blue-light" />
+                          <FaStar className="text-primary-blue-light" />
+                          <FaStar className="text-primary-blue-light" />
+                          <FaStar className="text-primary-blue-light" />
+                          <FaStar className="text-primary-blue-light" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </ClientStaggerItem>
+              </div>
+              
+              {/* View more testimonials button */}
+              <div className="text-center mt-12">
+                <ClientStaggerItem>
+                  <Link href="/testimonials">
+                    <button className="px-8 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+                      <span>View More Testimonials</span>
+                      <FaArrowRight className="text-sm" />
+                    </button>
+                  </Link>
+                </ClientStaggerItem>
+              </div>
+            </div>
+          </ClientOnly>
         </div>
-      </motion.section>
+      </section>
+      
+      {/* CALL TO ACTION SECTION - Bold & Premium */}
+      <section className="py-24 relative overflow-hidden">
+        {/* Background with similar treatment to other sections */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bg/datebg.jpg"
+            alt="Luxury background"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ zIndex: 1 }}
+          />
+          
+          {/* Overlay with same gradient as other sections */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-black/70 via-primary-black/60 to-primary-black/80" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-gold/10 via-transparent to-primary-blue-primary/10" style={{ zIndex: 3 }} />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ClientOnly>
+            <div className="max-w-5xl mx-auto">
+              <ClientStaggerContainer className="glass-card p-12 md:p-16 rounded-xl bg-black/40 backdrop-blur-md border border-white/10 shadow-2xl text-center">
+                <ClientStaggerItem>
+                  <h2 className="text-3xl sm:text-4xl md:text-5xl mb-6 leading-tight tracking-tight font-cormorant">
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                      Ready to Own a Piece of the Future?
+                    </span>
+                  </h2>
+                </ClientStaggerItem>
+                
+                <ClientStaggerItem>
+                  <ClientScrollReveal direction="up" delay={0.3}>
+                    <p className="text-xl text-white/95 font-montserrat font-light tracking-wide max-w-3xl mx-auto mb-12">
+                      Explore our listings, schedule a site visit, or talk to an advisor today. Your journey to premium property ownership begins here.
+                    </p>
+                  </ClientScrollReveal>
+                </ClientStaggerItem>
+                
+                <ClientStaggerItem>
+                  <div className="flex flex-wrap justify-center gap-6">
+                    <Link href="/properties">
+                      <button className="px-8 py-5 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold to-primary-gold-accent text-primary-black hover:shadow-[0_0_20px_rgba(201,161,77,0.5)] transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Explore Properties</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                    
+                    <Link href="/contact">
+                      <button className="px-8 py-5 text-base rounded-lg font-montserrat font-medium bg-transparent text-white border-2 border-white/30 hover:border-white/60 hover:bg-white/10 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Schedule a Visit</span>
+                        <FaMapMarkerAlt className="text-sm" />
+                      </button>
+                    </Link>
+                    
+                    <Link href="/investment">
+                      <button className="px-8 py-5 text-base rounded-lg font-montserrat font-medium bg-transparent text-primary-blue-light border-2 border-primary-blue-light/30 hover:border-primary-blue-light/60 hover:bg-primary-blue-light/10 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Talk to an Advisor</span>
+                        <FaPhone className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </ClientStaggerItem>
+              </ClientStaggerContainer>
+            </div>
+          </ClientOnly>
+        </div>
+      </section>
     </>
   )
 }

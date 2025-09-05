@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { FiMenu, FiX, FiPhone, FiMail } from 'react-icons/fi'
-import { FaChevronDown, FaMapMarkerAlt, FaBuilding, FaSeedling, FaHammer, FaNewspaper, FaUsers } from 'react-icons/fa'
+import { FaChevronDown, FaMapMarkerAlt, FaBuilding, FaSeedling, FaHammer, FaNewspaper, FaUsers, FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from 'react-icons/fa'
 
 const MotionVideo = motion.video;
 const Navbar = () => {
@@ -32,11 +32,12 @@ const Navbar = () => {
 
   const navLinks = [
     { name: 'Home', href: '/', icon: null },
-    { name: 'Portfolio', href: '#', icon: null },
-    { name: 'News', href: '/news', icon: <FaNewspaper className="w-4 h-4" /> },
     { name: 'About Us', href: '/about', icon: <FaUsers className="w-4 h-4" /> },
-    { name: 'Design System', href: '/design-system', icon: null },
-    { name: 'Contact', href: '/contact', icon: <FiPhone className="w-4 h-4" /> },
+    { name: 'Portfolio', href: '#', icon: null },
+    { name: 'Investment', href: '/investment', icon: <FaHammer className="w-4 h-4" /> },
+    { name: 'Blog', href: '/news', icon: <FaNewspaper className="w-4 h-4" /> },
+    //{ name: 'Design System', href: '/design-system', icon: null },
+    //{ name: 'Contact', href: '/contact', icon: <FiPhone className="w-4 h-4" /> },
   ]
 
   return (
@@ -51,35 +52,43 @@ const Navbar = () => {
       >
         <div className="bg-primary-black/80 backdrop-blur-sm border-b border-primary-gold/10">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex items-center justify-between h-12 text-sm">
-              <div className="flex items-center space-x-6 text-white/80">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between py-2 sm:py-0 sm:h-12 text-sm">
+              {/* Contact Info - Full width on mobile, left side on larger screens */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-0 sm:space-x-6 text-white/80 mb-2 sm:mb-0">
                 <motion.div 
                   className="flex items-center space-x-2 hover:text-primary-gold transition-colors cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                 >
                   <FiPhone className="w-3 h-3" />
-                  <span>+234 (0) 123 456 7890</span>
+                  <span className="text-xs sm:text-sm">+234 (0) 123 456 7890</span>
                 </motion.div>
                 <motion.div 
                   className="flex items-center space-x-2 hover:text-primary-gold transition-colors cursor-pointer"
                   whileHover={{ scale: 1.05 }}
                 >
                   <FiMail className="w-3 h-3" />
-                  <span>info@vistagrande.com</span>
+                  <span className="text-xs sm:text-sm">info@vistagrande.com</span>
                 </motion.div>
               </div>
-              <div className="hidden md:flex items-center space-x-4">
-                <span className="text-white/60">Follow us:</span>
-                <div className="flex space-x-3">
-                  {['Facebook', 'Twitter', 'Instagram', 'LinkedIn'].map((social, index) => (
+              
+              {/* Social Media - Full width on mobile, right side on larger screens */}
+              <div className="flex items-center space-x-3 sm:space-x-4">
+                <span className="text-xs sm:text-sm text-white/60">Follow us:</span>
+                <div className="flex space-x-2 sm:space-x-3">
+                  {[
+                    { name: 'Facebook', icon: <FaFacebookF size={12} className="sm:text-sm" /> },
+                    { name: 'Twitter', icon: <FaTwitter size={12} className="sm:text-sm" /> },
+                    { name: 'Instagram', icon: <FaInstagram size={12} className="sm:text-sm" /> },
+                    { name: 'LinkedIn', icon: <FaLinkedinIn size={12} className="sm:text-sm" /> }
+                  ].map((social, index) => (
                     <motion.a
-                      key={social}
+                      key={social.name}
                       href="#"
-                      className="w-6 h-6 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold hover:bg-primary-gold hover:text-primary-black transition-all duration-300"
+                      className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-primary-gold/20 flex items-center justify-center text-primary-gold hover:bg-primary-gold hover:text-primary-black transition-all duration-300"
                       whileHover={{ scale: 1.1, rotate: 5 }}
                       whileTap={{ scale: 0.95 }}
                     >
-                      {social.charAt(0)}
+                      {social.icon}
                     </motion.a>
                   ))}
                 </div>
@@ -99,7 +108,7 @@ const Navbar = () => {
         style={{ top: isScrolled ? '0' : '48px' }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20">
+          <div className="flex items-center justify-between h-24">
             <Link href="/" className="flex-shrink-0">
               <motion.div
                 className="relative group"
@@ -154,7 +163,7 @@ const Navbar = () => {
                         ? 'text-primary-gold' 
                         : 'text-white group-hover:text-primary-gold'
                     }`}>
-                      <span>Portfolio</span>
+                      <span className="text-base font-semibold tracking-wide">Portfolio</span>
                       <motion.span
                         variants={{
                           hover: { rotate: 180 },
@@ -245,7 +254,7 @@ const Navbar = () => {
                                   {item.icon}
                                 </motion.div>
                                 <div className="flex-1">
-                                  <div className="font-medium">{item.name}</div>
+                                  <div className="font-semibold text-base">{item.name}</div>
                                   <div className="text-xs text-white/60 group-hover:text-primary-gold/80 transition-colors">
                                     {item.description}
                                   </div>
@@ -289,7 +298,7 @@ const Navbar = () => {
                         {link.icon}
                       </motion.span>
                     )}
-                    <span className="font-medium">{link.name}</span>
+                    <span className="text-base font-semibold tracking-wide">{link.name}</span>
                     <motion.div 
                       className={`absolute -bottom-0.5 left-4 right-4 h-0.5 bg-primary-gold transform origin-left transition-all duration-300 ${
                         pathname === link.href
@@ -318,7 +327,7 @@ const Navbar = () => {
               >
                 <span className="relative z-10 flex items-center space-x-2">
                   <FiPhone className="w-4 h-4" />
-                  <span>Get Started</span>
+                  <span className="text-base font-bold tracking-wide">Contact</span>
                 </span>
                 {/* Shine effect */}
                 <motion.div
@@ -394,7 +403,7 @@ const Navbar = () => {
                             {link.icon}
                           </motion.span>
                         )}
-                        <span className="font-medium">{link.name}</span>
+                        <span className="text-base font-semibold tracking-wide">{link.name}</span>
                         <motion.div 
                           className={`absolute bottom-0 left-4 right-4 h-0.5 bg-primary-gold transform origin-left transition-all duration-300 ${
                             pathname === link.href ? 'w-full' : 'w-0 group-hover:w-full'
@@ -406,13 +415,29 @@ const Navbar = () => {
                 ))}
                 
                 {/* Portfolio section in mobile menu */}
+                 {/* Mobile CTA Button */}
+                <motion.div
+                  className="pt-6 px-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8 }}
+                >
+                  <Link
+                    href="/contact"
+                    className="btn-primary w-full text-center py-3 flex items-center justify-center space-x-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    <FiPhone className="w-4 h-4" />
+                    <span>Contact</span>
+                  </Link>
+                </motion.div>
                 <motion.div 
                   className="pt-4"
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.4 }}
                 >
-                  <div className="px-4 py-2 text-primary-gold font-semibold text-sm uppercase tracking-wider">
+                  <div className="px-4 py-2 text-primary-gold font-semibold text-base uppercase tracking-wider">
                     Portfolio
                   </div>
                   <div className="space-y-1">
@@ -442,7 +467,7 @@ const Navbar = () => {
                             {item.icon}
                           </motion.span>
                           <div className="flex-1">
-                            <div className="font-medium">{item.name}</div>
+                            <div className="font-semibold text-base">{item.name}</div>
                             <div className="text-xs text-white/60 group-hover:text-primary-gold/80">
                               {item.description}
                             </div>
@@ -458,22 +483,7 @@ const Navbar = () => {
                   </div>
                 </motion.div>
 
-                {/* Mobile CTA Button */}
-                <motion.div
-                  className="pt-6 px-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8 }}
-                >
-                  <Link
-                    href="/contact"
-                    className="btn-primary w-full text-center py-3 flex items-center justify-center space-x-2"
-                    onClick={() => setIsOpen(false)}
-                  >
-                    <FiPhone className="w-4 h-4" />
-                    <span>Get Started</span>
-                  </Link>
-                </motion.div>
+               
               </div>
             </motion.div>
           )}

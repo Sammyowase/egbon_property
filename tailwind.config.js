@@ -114,6 +114,7 @@ module.exports = {
         'lato': ['Lato', 'sans-serif'],
         'luxury': ['var(--font-playfair)', 'serif'],
         'body': ['var(--font-montserrat)', 'sans-serif'],
+        'cormorant': ['var(--font-cormorant)', 'serif'],
       },
 
       // Enhanced Spacing Scale

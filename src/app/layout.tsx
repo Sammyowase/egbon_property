@@ -9,6 +9,30 @@ import Analytics from "@/components/seo/Analytics";
 import LoadingProvider from "@/components/providers/LoadingProvider";
 import CustomCursor from "@/components/ui/CustomCursor";
 
+// Import Google Fonts
+import { Playfair_Display, Montserrat, Cormorant_Garamond } from 'next/font/google';
+
+// Initialize fonts
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-playfair',
+  weight: ['400', '500', '600', '700', '800', '900'],
+});
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+  weight: ['300', '400', '500', '600', '700'],
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-cormorant',
+  weight: ['300', '400', '500', '600', '700'],
+});
 
 
 export const metadata: Metadata = {
@@ -61,8 +85,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${playfair.variable} ${montserrat.variable} ${cormorant.variable}`}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
         <StructuredData
           type="Organization"
           data={{
@@ -76,7 +103,7 @@ export default function RootLayout({
           facebookPixelId={process.env.NEXT_PUBLIC_FB_PIXEL_ID}
         />
       </head>
-      <body className="font-sans luxury-bg-gradient luxury-bg-pattern text-white min-h-screen flex flex-col relative">
+      <body className="font-body luxury-bg-gradient luxury-bg-pattern text-white min-h-screen flex flex-col relative">
         {/* Enhanced Background Elements */}
         <div className="floating-orbs">
           <div className="orb orb-1"></div>
@@ -91,7 +118,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <LoadingProvider>
-          <CustomCursor enabled={true} trailLength={8} />
+          {/* Custom cursor removed for a more mature design */}
           <ErrorBoundary>
             <div className="relative z-10">
               <Navbar />

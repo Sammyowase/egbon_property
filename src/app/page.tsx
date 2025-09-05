@@ -8,7 +8,7 @@ import CategoryHeroCarousel from '@/components/ui/CategoryHeroCarousel'
 import PropertyShowcase from '@/components/ui/PropertyShowcase'
 import { fallbackHeroImages, heroImages, getRandomHeroImages } from '@/data/heroImages'
 // Optimized imports - only import what's actually used
-import { FaSearch, FaHome, FaHandshake, FaTrophy, FaUsers, FaHeart, FaStar, FaPlay, FaChevronRight, FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa'
+import { FaSearch, FaHome, FaHandshake, FaTrophy, FaUsers, FaHeart, FaStar, FaPlay, FaChevronRight, FaMapMarkerAlt, FaPhone, FaEnvelope, FaBuilding, FaArrowRight } from 'react-icons/fa'
 import { PropertyLoadingSpinner, MinimalLoadingSpinner } from '@/components/ui/LuxuryLoadingSpinner'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -522,20 +522,19 @@ export default function HomePage() {
 
   return (
     <>
-      <MotionBackground />
-      <EnhancedBackground />
+      {/* Simplified background for a more mature design */}
       
-      {/* HERO SECTION - Ultra Premium Cinematic Experience */}
+      {/* HERO SECTION - Ultra Premium Cinematic Experience - Mobile Optimized */}
       <motion.section
-        className="min-h-screen flex items-center relative pt-32 overflow-hidden"
+        className="min-h-screen flex items-center relative pt-32 sm:pt-36 md:pt-40 overflow-hidden"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2 }}
       >
-        {/* Hero Background Carousel - Direct Implementation */}
+        {/* Hero Background Carousel - Mobile Optimized */}
         <div className="absolute inset-0 z-0">
-          {/* Slide Counter */}
-          <div className="absolute top-4 right-4 bg-primary-gold text-primary-black px-3 py-1 rounded text-sm font-semibold z-50">
+          {/* Slide Counter - Mobile Responsive */}
+          <div className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-primary-gold text-primary-black px-2 py-1 sm:px-3 sm:py-1 rounded text-xs sm:text-sm font-semibold z-50">
             {heroCurrentSlide + 1}/{heroBackgroundImages.length}
           </div>
 
@@ -552,145 +551,66 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-r from-primary-gold/5 via-transparent to-primary-blue-primary/5" style={{ zIndex: 3 }} />
         </div>
 
-        {/* Enhanced Floating Geometric Elements */}
-        <div className="absolute inset-0 pointer-events-none z-5">
-          <motion.div 
-            className="absolute top-20 left-10 w-32 h-32 border border-primary-gold/20"
-            animate={{ 
-              rotate: [0, 360],
-              scale: [1, 1.1, 1],
-              opacity: [0.2, 0.4, 0.2]
-            }}
-            transition={{ 
-              duration: 20, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-20 right-10 w-24 h-24 border border-primary-blue-light/20"
-            animate={{ 
-              rotate: [0, -360],
-              y: [0, -20, 0],
-              opacity: [0.2, 0.5, 0.2]
-            }}
-            transition={{ 
-              duration: 15, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-          />
-          <motion.div 
-            className="absolute top-1/2 left-1/4 w-16 h-16 bg-primary-gold/10 rounded-full"
-            animate={{ 
-              scale: [1, 1.3, 1],
-              opacity: [0.3, 0.7, 0.3]
-            }}
-            transition={{ 
-              duration: 4, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-          />
-          
-          {/* Additional Floating Elements */}
-          <motion.div 
-            className="absolute top-1/3 right-1/3 w-20 h-20 border-2 border-primary-blue-light/15 rounded-full"
-            animate={{ 
-              rotate: [0, 360],
-              scale: [0.8, 1.2, 0.8]
-            }}
-            transition={{ 
-              duration: 12, 
-              repeat: Infinity, 
-              ease: "linear" 
-            }}
-          />
-          <motion.div 
-            className="absolute bottom-1/3 left-1/2 w-12 h-12 bg-gradient-to-br from-primary-gold/20 to-primary-blue-light/15 rounded-full"
-            animate={{ 
-              y: [0, -30, 0],
-              x: [0, 15, 0],
-              opacity: [0.4, 0.8, 0.4]
-            }}
-            transition={{ 
-              duration: 8, 
-              repeat: Infinity, 
-              ease: "easeInOut" 
-            }}
-          />
-        </div>
-
-        <BackgroundParticles />
+        {/* Simplified background with no floating elements */}
 
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <StaggerContainer className="text-center max-w-5xl mx-auto">
             <StaggerItem>
               <motion.div
                 className="mb-8"
-                animate={magneticEffect}
               >
-                <FloatingElement duration={6} amplitude={8}>
-                  <h1 className="heading-hero mb-6 luxury-gradient-mixed font-luxury">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-8 leading-tight tracking-tight">
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
                     Where Vision Meets Value
-                  </h1>
-                </FloatingElement>
+                  </span>
+                </h1>
               </motion.div>
             </StaggerItem>
 
             <StaggerItem>
               <ScrollReveal direction="up" delay={0.3}>
-                <motion.p 
-                  className="text-2xl md:text-3xl text-white/95 mb-6 font-light"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
+                <p 
+                  className="text-2xl sm:text-3xl md:text-4xl text-white/95 mb-6 font-montserrat font-light px-4 sm:px-0 tracking-wide"
                 >
                   Transforming Spaces. Elevating Lifestyles. Building Tomorrow.
-                </motion.p>
+                </p>
               </ScrollReveal>
             </StaggerItem>
 
-            <StaggerItem>
+            {/* <StaggerItem>
               <ScrollReveal direction="up" delay={0.5}>
-                <motion.p 
-                  className="body-luxury text-white/85 mb-10 max-w-4xl mx-auto leading-relaxed"
-                  whileHover={{ y: -2 }}
-                  transition={{ duration: 0.3 }}
+                <p 
+                  className="text-base sm:text-lg md:text-xl text-white/85 mb-10 max-w-4xl mx-auto leading-relaxed px-4 sm:px-6 md:px-4 font-montserrat tracking-normal"
                 >
                   Vista Grande Realty LTD is a next-generation real estate company dedicated to creating vibrant, livable, and sustainable communities across Nigeria, starting from the heart of Ibadan. We blend innovation with tradition to deliver exceptional value.
-                </motion.p>
+                </p>
               </ScrollReveal>
-            </StaggerItem>
+            </StaggerItem> */}
 
             <StaggerItem>
               <ScrollReveal direction="up" delay={0.7}>
-                <div className="flex flex-col sm:flex-row gap-6 justify-center">
-                  <Link href="/portfolio/property">
-                    <motion.button
-                      className="btn-magnetic px-10 py-5 text-lg rounded-xl font-semibold bg-gradient-to-r from-primary-gold to-primary-gold-accent text-primary-black shadow-2xl glow-gold-intense relative overflow-hidden group"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4 sm:px-0">
+                  <Link href="/portfolio/property" className="w-full sm:w-auto">
+                    <button
+                      className="w-full sm:w-auto px-6 sm:px-8 md:px-10 py-4 md:py-5 text-lg md:text-xl rounded-xl font-montserrat font-medium bg-gradient-to-r from-primary-gold to-primary-gold-accent text-primary-black shadow-lg relative overflow-hidden"
                     >
-                      <span className="relative z-10 flex items-center gap-3">
-                        <FaSearch />
-                        Explore Properties
-                        <FaChevronRight className="group-hover:translate-x-1 transition-transform" />
+                      <span className="relative z-10 flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
+                        <FaSearch className="text-base sm:text-lg" />
+                        <span>View Listings</span>
+                        <FaChevronRight className="text-base sm:text-lg" />
                       </span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-primary-gold-accent to-primary-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </motion.button>
+                    </button>
                   </Link>
-                  <Link href="/contact">
-                    <motion.button
-                      className="btn-magnetic px-10 py-5 text-lg rounded-xl font-semibold border-2 border-primary-blue-light text-primary-blue-light hover:bg-primary-blue-light hover:text-white transition-all duration-300 glow-blue-intense relative overflow-hidden group"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
+                  <Link href="/contact" className="w-full sm:w-auto">
+                    <button
+                      className="w-full sm:w-auto px-6 sm:px-8 md:px-10 py-4 md:py-5 text-lg md:text-xl rounded-xl font-montserrat font-medium border-2 border-primary-blue-light text-primary-blue-light bg-transparent relative overflow-hidden"
                     >
-                      <span className="relative z-10 flex items-center gap-3">
-                        <FaPhone />
-                        Get in Touch
-                        <FaEnvelope className="group-hover:rotate-12 transition-transform" />
+                      <span className="relative z-10 flex items-center justify-center sm:justify-start gap-2 sm:gap-3">
+                        <FaPhone className="text-base sm:text-lg" />
+                        <span>Get in Touch</span>
+                        <FaEnvelope className="text-base sm:text-lg" />
                       </span>
-                    </motion.button>
+                    </button>
                   </Link>
                 </div>
               </ScrollReveal>
@@ -735,126 +655,227 @@ export default function HomePage() {
         </motion.div>
       </motion.section>
 
-      {/* SERVICES SECTION - Enhanced with Glass Morphism */}
-      <ParallaxSection className="py-24 relative">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="up" className="text-center mb-20">
-            <motion.h2 
-              className="heading-display text-center mb-8 luxury-gradient-text"
-              whileHover={{ scale: 1.02 }}
-            >
-              What We Offer
-            </motion.h2>
-            <motion.p 
-              className="body-luxury text-white/90 max-w-4xl mx-auto"
-              whileHover={{ y: -2 }}
-            >
-              We combine local insight with global standards to deliver premium residential, commercial, and investment properties that stand the test of time. Our comprehensive approach ensures every project exceeds expectations.
-            </motion.p>
-          </ScrollReveal>
-
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      {/* WHO WE ARE SECTION - Grand & Luxurious */}
+      <motion.section 
+        className="py-32 relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Background with similar treatment to hero */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bg/back_.jpeg"
+            alt="Luxury background"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ zIndex: 1 }}
+          />
+          
+          {/* Overlay with same gradient as hero */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-black/70 via-primary-black/60 to-primary-black/80" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-gold/5 via-transparent to-primary-blue-primary/5" style={{ zIndex: 3 }} />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <StaggerContainer className="text-center max-w-5xl mx-auto">
             <StaggerItem>
-              <motion.div
-                className="glass-morphism-gold p-10 text-center h-full rounded-2xl card-3d group"
-                variants={cardHover}
-                initial="rest"
-                whileHover="hover"
-              >
-                <FloatingElement duration={4} amplitude={4}>
-                  <motion.div
-                    className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary-gold/30 to-primary-gold/10 flex items-center justify-center relative overflow-hidden"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    <FaHome className="text-primary-gold text-3xl relative z-10" />
-                    <div className="absolute inset-0 bg-primary-gold/20 rounded-full animate-pulse-glow" />
-                  </motion.div>
-                </FloatingElement>
-                <h3 className="text-2xl font-bold text-white mb-6 group-hover:luxury-gradient-text transition-all duration-300">
-                  Premium Developments
-                </h3>
-                <p className="text-white/80 mb-8 leading-relaxed">
-                  Luxury residential and commercial developments that redefine modern living with world-class amenities and architectural excellence.
-                </p>
-                <motion.button 
-                  className="btn-magnetic px-6 py-3 text-sm rounded-lg text-primary-gold border border-primary-gold/30 hover:bg-primary-gold/10 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Explore Projects
-                </motion.button>
+              <motion.div className="mb-12">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                    Who We Are
+                  </span>
+                </h2>
               </motion.div>
             </StaggerItem>
-
+            
             <StaggerItem>
-              <motion.div
-                className="glass-morphism-blue p-10 text-center h-full rounded-2xl card-3d group"
-                variants={cardHover}
-                initial="rest"
-                whileHover="hover"
-              >
-                <FloatingElement duration={5} amplitude={4} delay={0.5}>
-                  <motion.div
-                    className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary-blue-light/30 to-primary-blue-light/10 flex items-center justify-center relative overflow-hidden"
-                    whileHover={{ rotate: -360 }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    <FaTrophy className="text-primary-blue-light text-3xl relative z-10" />
-                    <div className="absolute inset-0 bg-primary-blue-light/20 rounded-full animate-pulse-glow" />
-                  </motion.div>
-                </FloatingElement>
-                <h3 className="text-2xl font-bold text-white mb-6 group-hover:luxury-gradient-blue transition-all duration-300">
-                  Resort & Eco Estates
-                </h3>
-                <p className="text-white/80 mb-8 leading-relaxed">
-                  Live, relax, and thrive in beautifully integrated resort-style environments that harmonize luxury with nature's tranquility.
-                </p>
-                <motion.button 
-                  className="btn-magnetic px-6 py-3 text-sm rounded-lg text-primary-blue-light border border-primary-blue-light/30 hover:bg-primary-blue-light/10 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Discover More
-                </motion.button>
-              </motion.div>
+              <ScrollReveal direction="up" delay={0.3}>
+                <div className="relative mb-16">
+                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-gold to-transparent"></div>
+                  <p className="text-xl sm:text-2xl md:text-3xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto">
+                    Vista Grande Realty LTD is a next-generation real estate company dedicated to creating vibrant, livable, and sustainable
+                    communities across Nigeria.
+                  </p>
+                  <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-gold to-transparent"></div>
+                </div>
+              </ScrollReveal>
             </StaggerItem>
-
+            
             <StaggerItem>
-              <motion.div
-                className="glass-morphism-gold p-10 text-center h-full rounded-2xl card-3d group"
-                variants={cardHover}
-                initial="rest"
-                whileHover="hover"
-              >
-                <FloatingElement duration={4.5} amplitude={4} delay={1}>
-                  <motion.div
-                    className="w-20 h-20 mx-auto mb-8 rounded-full bg-gradient-to-br from-primary-gold/30 to-primary-blue-light/20 flex items-center justify-center relative overflow-hidden"
-                    whileHover={{ rotate: 180 }}
-                    transition={{ duration: 0.8 }}
-                  >
-                    <FaHandshake className="text-primary-gold text-3xl relative z-10" />
-                    <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 to-primary-blue-light/20 rounded-full animate-pulse-glow" />
+              <ScrollReveal direction="up" delay={0.5}>
+                <div className="glass-card p-8 md:p-10 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10 shadow-2xl">
+                  <p className="text-lg md:text-xl text-white/90 font-montserrat leading-relaxed">
+                    We combine local insight with global standards to deliver premium residential, commercial, and investment properties that stand the test of time. Our vision is to transform spaces, elevate lifestyles, and build tomorrow's communities today.
+                  </p>
+                </div>
+              </ScrollReveal>
+            </StaggerItem>
+            
+            <StaggerItem>
+              <ScrollReveal direction="up" delay={0.7}>
+                <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/70">
+                  <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
+                    <FaTrophy className="text-primary-gold" />
+                    <span className="text-sm">Award Winning</span>
                   </motion.div>
-                </FloatingElement>
-                <h3 className="text-2xl font-bold text-white mb-6 group-hover:luxury-gradient-mixed transition-all duration-300">
-                  Investment Advisory
-                </h3>
-                <p className="text-white/80 mb-8 leading-relaxed">
-                  We help you build generational wealth through smart, strategic property investments backed by market expertise and data-driven insights.
-                </p>
-                <motion.button 
-                  className="btn-magnetic px-6 py-3 text-sm rounded-lg text-primary-gold border border-primary-gold/30 hover:bg-primary-gold/10 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Get Started
-                </motion.button>
-              </motion.div>
+                  <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
+                    <FaBuilding className="text-primary-blue-light" />
+                    <span className="text-sm">Premium Properties</span>
+                  </motion.div>
+                  <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
+                    <FaUsers className="text-primary-gold" />
+                    <span className="text-sm">Trusted by Clients</span>
+                  </motion.div>
+                </div>
+              </ScrollReveal>
             </StaggerItem>
           </StaggerContainer>
         </div>
-      </ParallaxSection>
+      </motion.section>
+
+      {/* SERVICES SECTION - Grand & Luxurious */}
+      <motion.section 
+        className="py-32 relative overflow-hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        {/* Background with similar treatment to hero */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bg/datebg.jpg"
+            alt="Luxury background"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ zIndex: 1 }}
+          />
+          
+          {/* Overlay with same gradient as hero */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-black/70 via-primary-black/60 to-primary-black/80" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-blue-primary/5 via-transparent to-primary-gold/5" style={{ zIndex: 3 }} />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <StaggerContainer className="text-center max-w-5xl mx-auto mb-16">
+            <StaggerItem>
+              <motion.div className="mb-12">
+                <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                    What We Offer
+                  </span>
+                </h2>
+              </motion.div>
+            </StaggerItem>
+            
+            <StaggerItem>
+              <ScrollReveal direction="up" delay={0.3}>
+                <p className="text-xl sm:text-2xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto mb-8">
+                  Exceptional properties and services designed to elevate your lifestyle and investment portfolio.
+                </p>
+              </ScrollReveal>
+            </StaggerItem>
+          </StaggerContainer>
+
+          <div className="max-w-6xl mx-auto">
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+              <StaggerItem>
+                <motion.div 
+                  className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group"
+                  whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(201, 161, 77, 0.25)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="mb-6 flex justify-between items-start">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center">
+                        <FaHome className="text-primary-black text-2xl" />
+                      </div>
+                      <div className="w-20 h-1 bg-gradient-to-r from-primary-gold to-transparent self-center"></div>
+                    </div>
+                    
+                    <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
+                      Residential Developments
+                    </h3>
+                    
+                    <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
+                      Gated communities, smart estates, and green living environments designed for comfort and future growth.
+                    </p>
+                    
+                    <Link href="/portfolio/residential" className="mt-auto">
+                      <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Explore Properties</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </motion.div>
+              </StaggerItem>
+
+              <StaggerItem>
+                <motion.div 
+                  className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-blue-light/10 shadow-xl h-full group"
+                  whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(100, 149, 237, 0.25)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="mb-6 flex justify-between items-start">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center">
+                        <FaTrophy className="text-primary-black text-2xl" />
+                      </div>
+                      <div className="w-20 h-1 bg-gradient-to-r from-primary-blue-light to-transparent self-center"></div>
+                    </div>
+                    
+                    <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-blue-light transition-colors duration-300">
+                      Resort & Eco Estates
+                    </h3>
+                    
+                    <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
+                      Live, relax, and thrive in beautifully integrated resort-style environments that harmonize luxury with nature's tranquility.
+                    </p>
+                    
+                    <Link href="/portfolio/resorts" className="mt-auto">
+                      <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-blue-light/10 to-primary-blue-light/20 text-primary-blue-light border border-primary-blue-light/30 hover:from-primary-blue-light/20 hover:to-primary-blue-light/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Discover Resorts</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </motion.div>
+              </StaggerItem>
+
+              <StaggerItem>
+                <motion.div 
+                  className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group"
+                  whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(201, 161, 77, 0.25)" }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <div className="flex flex-col h-full">
+                    <div className="mb-6 flex justify-between items-start">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center">
+                        <FaHandshake className="text-primary-black text-2xl" />
+                      </div>
+                      <div className="w-20 h-1 bg-gradient-to-r from-primary-gold to-transparent self-center"></div>
+                    </div>
+                    
+                    <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
+                      Investment Advisory
+                    </h3>
+                    
+                    <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
+                      We help you build generational wealth through smart, strategic property investments backed by market expertise and data-driven insights.
+                    </p>
+                    
+                    <Link href="/services/investment" className="mt-auto">
+                      <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>Get Started</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </motion.div>
+              </StaggerItem>
+            </StaggerContainer>
+          </div>
+        </div>
+      </motion.section>
 
       {/* STATS SECTION - Enhanced with Color Coding */}
       <motion.section

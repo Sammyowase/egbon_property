@@ -982,7 +982,7 @@ export default function HomePage() {
         {/* Background with similar treatment to other sections */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/bg/properties_bg.jpg"
+            src="\background\avi-werde-hHz4yrvxwlA-unsplash.jpg"
             alt="Luxury properties background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}
@@ -1042,7 +1042,7 @@ export default function HomePage() {
                 <div className="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
                   <div className="relative h-64 overflow-hidden">
                     <img 
-                      src="/properties/property1.jpg" 
+                      src="background\avi-werde-hHz4yrvxwlA-unsplash.jpg" 
                       alt="Luxury Villa" 
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -1081,7 +1081,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     
-                    <Link href="/properties/sunset-villa">
+                    <Link href="background\avi-werde-hHz4yrvxwlA-unsplash.jpg">
                       <button className="w-full py-3 rounded-lg bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
                         <span>View Details</span>
                         <FaArrowRight className="text-sm" />
@@ -1096,7 +1096,7 @@ export default function HomePage() {
                 <div className="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
                   <div className="relative h-64 overflow-hidden">
                     <img 
-                      src="/properties/property2.jpg" 
+                      src="\background\avi-werde-hHz4yrvxwlA-unsplash.jpg" 
                       alt="Azure Towers" 
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
@@ -1135,7 +1135,7 @@ export default function HomePage() {
                       </div>
                     </div>
                     
-                    <Link href="/properties/azure-towers">
+                    <Link href="\background\avi-werde-hHz4yrvxwlA-unsplash.jpg">
                       <button className="w-full py-3 rounded-lg bg-gradient-to-r from-primary-blue-light/10 to-primary-blue-light/20 text-primary-blue-light border border-primary-blue-light/30 hover:from-primary-blue-light/20 hover:to-primary-blue-light/30 transition-all duration-300 flex items-center justify-center gap-2">
                         <span>View Details</span>
                         <FaArrowRight className="text-sm" />
@@ -1150,7 +1150,7 @@ export default function HomePage() {
                 <div className="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
                   <div className="relative h-64 overflow-hidden">
                     <img 
-                      src="/properties/property3.jpg" 
+                      src="\background\avi-werde-hHz4yrvxwlA-unsplash.jpg" 
                       alt="Emerald Estate" 
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />

@@ -13,6 +13,7 @@ import { PropertyLoadingSpinner, MinimalLoadingSpinner } from '@/components/ui/L
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { ClientOnly, ClientScrollReveal, ClientStaggerContainer, ClientStaggerItem } from '@/components/animations/ClientOnly'
 
 const PropertyMap = dynamic(() => import('@/components/PropertyMap'), {
   loading: () => (
@@ -656,12 +657,7 @@ export default function HomePage() {
       </motion.section>
 
       {/* WHO WE ARE SECTION - Grand & Luxurious */}
-      <motion.section 
-        className="py-32 relative overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
+      <section className="py-32 relative overflow-hidden">
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
@@ -677,69 +673,66 @@ export default function HomePage() {
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <StaggerContainer className="text-center max-w-5xl mx-auto">
-            <StaggerItem>
-              <motion.div className="mb-12">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
-                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
-                    Who We Are
-                  </span>
-                </h2>
-              </motion.div>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <ScrollReveal direction="up" delay={0.3}>
-                <div className="relative mb-16">
-                  <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-gold to-transparent"></div>
-                  <p className="text-xl sm:text-2xl md:text-3xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto">
-                    Vista Grande Realty LTD is a next-generation real estate company dedicated to creating vibrant, livable, and sustainable
-                    communities across Nigeria.
-                  </p>
-                  <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-gold to-transparent"></div>
+          <ClientOnly>
+            <ClientStaggerContainer className="text-center max-w-5xl mx-auto">
+              <ClientStaggerItem>
+                <div className="mb-12">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                      Who We Are
+                    </span>
+                  </h2>
                 </div>
-              </ScrollReveal>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <ScrollReveal direction="up" delay={0.5}>
-                <div className="glass-card p-8 md:p-10 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10 shadow-2xl">
-                  <p className="text-lg md:text-xl text-white/90 font-montserrat leading-relaxed">
-                    We combine local insight with global standards to deliver premium residential, commercial, and investment properties that stand the test of time. Our vision is to transform spaces, elevate lifestyles, and build tomorrow's communities today.
-                  </p>
-                </div>
-              </ScrollReveal>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <ScrollReveal direction="up" delay={0.7}>
-                <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/70">
-                  <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
-                    <FaTrophy className="text-primary-gold" />
-                    <span className="text-sm">Award Winning</span>
-                  </motion.div>
-                  <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
-                    <FaBuilding className="text-primary-blue-light" />
-                    <span className="text-sm">Premium Properties</span>
-                  </motion.div>
-                  <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
-                    <FaUsers className="text-primary-gold" />
-                    <span className="text-sm">Trusted by Clients</span>
-                  </motion.div>
-                </div>
-              </ScrollReveal>
-            </StaggerItem>
-          </StaggerContainer>
+              </ClientStaggerItem>
+              
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.3}>
+                  <div className="relative mb-16">
+                    <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-gold to-transparent"></div>
+                    <p className="text-xl sm:text-2xl md:text-3xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto">
+                      Vista Grande Realty LTD is a next-generation real estate company dedicated to creating vibrant, livable, and sustainable
+                      communities across Nigeria.
+                    </p>
+                    <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-primary-gold to-transparent"></div>
+                  </div>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+              
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.5}>
+                  <div className="glass-card p-8 md:p-10 rounded-xl bg-black/20 backdrop-blur-sm border border-white/10 shadow-2xl">
+                    <p className="text-lg md:text-xl text-white/90 font-montserrat leading-relaxed">
+                      We combine local insight with global standards to deliver premium residential, commercial, and investment properties that stand the test of time. Our vision is to transform spaces, elevate lifestyles, and build tomorrow's communities today.
+                    </p>
+                  </div>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+              
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.7}>
+                  <div className="mt-12 flex flex-wrap justify-center items-center gap-8 text-white/70">
+                    <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
+                      <FaTrophy className="text-primary-gold" />
+                      <span className="text-sm">Award Winning</span>
+                    </motion.div>
+                    <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
+                      <FaBuilding className="text-primary-blue-light" />
+                      <span className="text-sm">Premium Properties</span>
+                    </motion.div>
+                    <motion.div className="flex items-center gap-2" whileHover={{ scale: 1.1 }}>
+                      <FaUsers className="text-primary-gold" />
+                      <span className="text-sm">Trusted by Clients</span>
+                    </motion.div>
+                  </div>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+            </ClientStaggerContainer>
+          </ClientOnly>
         </div>
-      </motion.section>
+      </section>
 
       {/* SERVICES SECTION - Grand & Luxurious */}
-      <motion.section 
-        className="py-32 relative overflow-hidden"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
+      <section className="py-32 relative overflow-hidden">
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
@@ -755,188 +748,234 @@ export default function HomePage() {
         </div>
         
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <StaggerContainer className="text-center max-w-5xl mx-auto mb-16">
-            <StaggerItem>
-              <motion.div className="mb-12">
-                <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
-                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
-                    What We Offer
-                  </span>
-                </h2>
-              </motion.div>
-            </StaggerItem>
-            
-            <StaggerItem>
-              <ScrollReveal direction="up" delay={0.3}>
-                <p className="text-xl sm:text-2xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto mb-8">
-                  Exceptional properties and services designed to elevate your lifestyle and investment portfolio.
-                </p>
-              </ScrollReveal>
-            </StaggerItem>
-          </StaggerContainer>
+          <ClientOnly>
+            <ClientStaggerContainer className="text-center max-w-5xl mx-auto mb-16">
+              <ClientStaggerItem>
+                <div className="mb-12">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                      What We Offer
+                    </span>
+                  </h2>
+                </div>
+              </ClientStaggerItem>
+              
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.3}>
+                  <p className="text-xl sm:text-2xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto mb-8">
+                    Exceptional properties and services designed to elevate your lifestyle and investment portfolio.
+                  </p>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+            </ClientStaggerContainer>
 
-          <div className="max-w-6xl mx-auto">
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
-              <StaggerItem>
-                <motion.div 
-                  className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group"
-                  whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(201, 161, 77, 0.25)" }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="flex flex-col h-full">
-                    <div className="mb-6 flex justify-between items-start">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center">
-                        <FaHome className="text-primary-black text-2xl" />
+            <div className="max-w-6xl mx-auto">
+              <ClientStaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex flex-col h-full">
+                      <div className="mb-6 flex justify-between items-start">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center">
+                          <FaHome className="text-primary-black text-2xl" />
+                        </div>
+                        <div className="w-20 h-1 bg-gradient-to-r from-primary-gold to-transparent self-center"></div>
                       </div>
-                      <div className="w-20 h-1 bg-gradient-to-r from-primary-gold to-transparent self-center"></div>
+                      
+                      <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
+                        Residential Developments
+                      </h3>
+                      
+                      <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
+                        Gated communities, smart estates, and green living environments designed for comfort and future growth.
+                      </p>
+                      
+                      <Link href="/portfolio/residential" className="mt-auto">
+                        <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
+                          <span>Explore Properties</span>
+                          <FaArrowRight className="text-sm" />
+                        </button>
+                      </Link>
                     </div>
-                    
-                    <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
-                      Residential Developments
-                    </h3>
-                    
-                    <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
-                      Gated communities, smart estates, and green living environments designed for comfort and future growth.
-                    </p>
-                    
-                    <Link href="/portfolio/residential" className="mt-auto">
-                      <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
-                        <span>Explore Properties</span>
-                        <FaArrowRight className="text-sm" />
-                      </button>
-                    </Link>
                   </div>
-                </motion.div>
-              </StaggerItem>
+                </ClientStaggerItem>
 
-              <StaggerItem>
-                <motion.div 
-                  className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-blue-light/10 shadow-xl h-full group"
-                  whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(100, 149, 237, 0.25)" }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="flex flex-col h-full">
-                    <div className="mb-6 flex justify-between items-start">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center">
-                        <FaTrophy className="text-primary-black text-2xl" />
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-blue-light/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex flex-col h-full">
+                      <div className="mb-6 flex justify-between items-start">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center">
+                          <FaTrophy className="text-primary-black text-2xl" />
+                        </div>
+                        <div className="w-20 h-1 bg-gradient-to-r from-primary-blue-light to-transparent self-center"></div>
                       </div>
-                      <div className="w-20 h-1 bg-gradient-to-r from-primary-blue-light to-transparent self-center"></div>
+                      
+                      <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-blue-light transition-colors duration-300">
+                        Resort & Eco Estates
+                      </h3>
+                      
+                      <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
+                        Live, relax, and thrive in beautifully integrated resort-style environments that harmonize luxury with nature's tranquility.
+                      </p>
+                      
+                      <Link href="/portfolio/resorts" className="mt-auto">
+                        <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-blue-light/10 to-primary-blue-light/20 text-primary-blue-light border border-primary-blue-light/30 hover:from-primary-blue-light/20 hover:to-primary-blue-light/30 transition-all duration-300 flex items-center justify-center gap-2">
+                          <span>Discover Resorts</span>
+                          <FaArrowRight className="text-sm" />
+                        </button>
+                      </Link>
                     </div>
-                    
-                    <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-blue-light transition-colors duration-300">
-                      Resort & Eco Estates
-                    </h3>
-                    
-                    <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
-                      Live, relax, and thrive in beautifully integrated resort-style environments that harmonize luxury with nature's tranquility.
-                    </p>
-                    
-                    <Link href="/portfolio/resorts" className="mt-auto">
-                      <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-blue-light/10 to-primary-blue-light/20 text-primary-blue-light border border-primary-blue-light/30 hover:from-primary-blue-light/20 hover:to-primary-blue-light/30 transition-all duration-300 flex items-center justify-center gap-2">
-                        <span>Discover Resorts</span>
-                        <FaArrowRight className="text-sm" />
-                      </button>
-                    </Link>
                   </div>
-                </motion.div>
-              </StaggerItem>
+                </ClientStaggerItem>
 
-              <StaggerItem>
-                <motion.div 
-                  className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group"
-                  whileHover={{ y: -5, boxShadow: "0 25px 50px -12px rgba(201, 161, 77, 0.25)" }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="flex flex-col h-full">
-                    <div className="mb-6 flex justify-between items-start">
-                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center">
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex flex-col h-full">
+                      <div className="mb-6 flex justify-between items-start">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center">
+                          <FaHandshake className="text-primary-black text-2xl" />
+                        </div>
+                        <div className="w-20 h-1 bg-gradient-to-r from-primary-gold to-transparent self-center"></div>
+                      </div>
+                      
+                      <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
+                        Investment Advisory
+                      </h3>
+                      
+                      <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
+                        We help you build generational wealth through smart, strategic property investments backed by market expertise and data-driven insights.
+                      </p>
+                      
+                      <Link href="/services/investment" className="mt-auto">
+                        <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
+                          <span>Get Started</span>
+                          <FaArrowRight className="text-sm" />
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                </ClientStaggerItem>
+              </ClientStaggerContainer>
+            </div>
+          </ClientOnly>
+        </div>
+      </section>
+
+      {/* WHY CHOOSE VISTA GRANDE SECTION - Grand & Luxurious */}
+      <section className="py-32 relative overflow-hidden">
+        {/* Background with similar treatment to hero */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bg/bg_account.png"
+            alt="Luxury background"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ zIndex: 1 }}
+          />
+          
+          {/* Overlay with same gradient as hero */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-black/70 via-primary-black/60 to-primary-black/80" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-gold/5 via-transparent to-primary-blue-primary/5" style={{ zIndex: 3 }} />
+        </div>
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ClientOnly>
+            <ClientStaggerContainer className="text-center max-w-5xl mx-auto mb-16">
+              <ClientStaggerItem>
+                <div className="mb-12">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                      Why Choose Vista Grande
+                    </span>
+                  </h2>
+                </div>
+              </ClientStaggerItem>
+              
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.3}>
+                  <p className="text-xl sm:text-2xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto mb-16">
+                    We're not just building properties; we're creating legacies.
+                  </p>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+            </ClientStaggerContainer>
+
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex items-start gap-6">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center flex-shrink-0">
                         <FaHandshake className="text-primary-black text-2xl" />
                       </div>
-                      <div className="w-20 h-1 bg-gradient-to-r from-primary-gold to-transparent self-center"></div>
+                      <div>
+                        <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
+                          Integrity-Driven
+                        </h3>
+                        <p className="text-white/80 leading-relaxed font-montserrat text-base">
+                          We deliver what we promise — no shortcuts, no surprises. Our commitment to transparency and honesty is the foundation of every relationship we build.
+                        </p>
+                      </div>
                     </div>
-                    
-                    <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
-                      Investment Advisory
-                    </h3>
-                    
-                    <p className="text-white/80 mb-8 leading-relaxed font-montserrat text-base flex-grow">
-                      We help you build generational wealth through smart, strategic property investments backed by market expertise and data-driven insights.
-                    </p>
-                    
-                    <Link href="/services/investment" className="mt-auto">
-                      <button className="w-full px-6 py-4 text-base rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
-                        <span>Get Started</span>
-                        <FaArrowRight className="text-sm" />
-                      </button>
-                    </Link>
                   </div>
-                </motion.div>
-              </StaggerItem>
-            </StaggerContainer>
-          </div>
-        </div>
-      </motion.section>
+                </ClientStaggerItem>
 
-      {/* STATS SECTION - Enhanced with Color Coding */}
-      <motion.section
-        className="py-20 relative overflow-hidden"
-        variants={staggerChildren}
-        initial="initial"
-        animate="animate"
-      >
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-r from-primary-gold/10 to-primary-blue-light/10" />
-        </div>
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-blue-light/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex items-start gap-6">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center flex-shrink-0">
+                        <FaUsers className="text-primary-black text-2xl" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-blue-light transition-colors duration-300">
+                          Customer-Centric
+                        </h3>
+                        <p className="text-white/80 leading-relaxed font-montserrat text-base">
+                          You're not just a client; you're a partner. We prioritize your needs, preferences, and long-term satisfaction in every decision we make.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ClientStaggerItem>
 
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
-                key={index}
-                className={`glass-morphism-${stat.color === 'gold' ? 'gold' : 'blue'} text-center p-8 rounded-2xl card-3d group`}
-                variants={cardHover}
-                initial="rest"
-                whileHover="hover"
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <motion.div
-                  className={`text-${stat.color === 'gold' ? 'primary-gold' : 'primary-blue-light'} text-5xl mb-6 flex justify-center`}
-                  whileHover={{ scale: 1.3, rotate: 10 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  {stat.icon}
-                </motion.div>
-                <div className="text-4xl font-bold text-white mb-3">
-                  <AnimatedCounter
-                    value={stat.value}
-                    suffix={stat.suffix}
-                    duration={2.5 + index * 0.3}
-                  />
-                </div>
-                <div className="text-white/70 text-luxury-sm font-medium">{stat.label}</div>
-                
-                {/* Animated Progress Bar */}
-                <motion.div
-                  className="mt-4 h-1 bg-white/10 rounded-full overflow-hidden"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: index * 0.2 + 1, duration: 1 }}
-                >
-                  <motion.div
-                    className={`h-full bg-gradient-to-r ${stat.color === 'gold' ? 'from-primary-gold to-primary-gold-accent' : 'from-primary-blue-light to-primary-blue-accent'}`}
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    style={{ transformOrigin: 'left' }}
-                    transition={{ delay: index * 0.2 + 1.5, duration: 1.5 }}
-                  />
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-blue-light/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex items-start gap-6">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center flex-shrink-0">
+                        <FaBuilding className="text-primary-black text-2xl" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-blue-light transition-colors duration-300">
+                          Future-Focused
+                        </h3>
+                        <p className="text-white/80 leading-relaxed font-montserrat text-base">
+                          From smart tech to sustainability, we build for tomorrow. Our developments anticipate future needs and incorporate innovations that stand the test of time.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ClientStaggerItem>
+
+                <ClientStaggerItem>
+                  <div className="glass-card p-8 rounded-xl bg-black/30 backdrop-blur-sm border border-primary-gold/10 shadow-xl h-full group hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
+                    <div className="flex items-start gap-6">
+                      <div className="w-16 h-16 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center flex-shrink-0">
+                        <FaMapMarkerAlt className="text-primary-black text-2xl" />
+                      </div>
+                      <div>
+                        <h3 className="text-2xl font-cormorant text-white font-medium mb-4 group-hover:text-primary-gold transition-colors duration-300">
+                          Local Expertise
+                        </h3>
+                        <p className="text-white/80 leading-relaxed font-montserrat text-base">
+                          Deep roots in Lagos, Ogun, Oyo, and growing across Nigeria. Our intimate knowledge of local markets ensures you get the best locations with the highest potential.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </ClientStaggerItem>
+              </div>
+            </div>
+          </ClientOnly>
         </div>
-      </motion.section>
+      </section>
 
       {/* ENHANCED PROPERTY SHOWCASE - Dynamic Category-Based Display */}
       <PropertyShowcase

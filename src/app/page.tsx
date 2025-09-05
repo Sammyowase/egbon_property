@@ -8,7 +8,7 @@ import CategoryHeroCarousel from '@/components/ui/CategoryHeroCarousel'
 import PropertyShowcase from '@/components/ui/PropertyShowcase'
 import { fallbackHeroImages, heroImages, getRandomHeroImages } from '@/data/heroImages'
 // Optimized imports - only import what's actually used
-import { FaSearch, FaHome, FaHandshake, FaTrophy, FaUsers, FaHeart, FaStar, FaPlay, FaChevronRight, FaMapMarkerAlt, FaPhone, FaEnvelope, FaBuilding, FaArrowRight } from 'react-icons/fa'
+import { FaSearch, FaHome, FaHandshake, FaTrophy, FaUsers, FaHeart, FaStar, FaPlay, FaChevronRight, FaMapMarkerAlt, FaPhone, FaEnvelope, FaBuilding, FaArrowRight, FaBed, FaBath, FaRuler } from 'react-icons/fa'
 import { PropertyLoadingSpinner, MinimalLoadingSpinner } from '@/components/ui/LuxuryLoadingSpinner'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
@@ -977,164 +977,243 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ENHANCED PROPERTY SHOWCASE - Dynamic Category-Based Display */}
-      <PropertyShowcase
-        title="Featured Properties"
-        subtitle="Discover our most exceptional properties, each carefully curated to represent the pinnacle of luxury living and investment opportunity."
-        showFilters={true}
-        maxProperties={6}
-        className="bg-gradient-to-b from-primary-black/95 to-primary-black-light/95"
-      />
-
-      {/* VIRTUAL TOUR SECTION - Enhanced Interactive Experience */}
-      {/* <ParallaxSection className="py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <ScrollReveal direction="left">
-              <motion.div
-                whileHover={{ x: 5 }}
-                transition={{ duration: 0.3 }}
-              >
-                <h2 className="heading-display mb-8 luxury-gradient-mixed">
-                  Experience Properties in Virtual Reality
-                </h2>
-                <p className="body-luxury text-white/90 mb-10 leading-relaxed">
-                  Take an immersive virtual tour of our luxury properties from the comfort of your home. Experience every detail in stunning 360° clarity with our cutting-edge VR technology.
-                </p>
-
-                <StaggerContainer className="space-y-8 mb-10">
-                  <StaggerItem>
-                    <motion.div 
-                      className="flex items-center gap-6 text-white/70 group"
-                      whileHover={{ x: 10 }}
-                    >
-                      <FloatingElement duration={3} amplitude={3}>
-                        <div className="w-16 h-16 rounded-full glass-morphism-gold flex items-center justify-center text-primary-gold group-hover:glow-gold-intense transition-all duration-300">
-                          <FaHome className="text-xl" />
-                        </div>
-                      </FloatingElement>
-                      <div>
-                        <h3 className="font-bold text-white text-lg mb-2">360° Immersive Tours</h3>
-                        <p className="text-white/70">Explore every room in photorealistic detail with smooth navigation</p>
-                      </div>
-                    </motion.div>
-                  </StaggerItem>
-
-                  <StaggerItem>
-                    <motion.div 
-                      className="flex items-center gap-6 text-white/70 group"
-                      whileHover={{ x: 10 }}
-                    >
-                      <FloatingElement duration={3.5} amplitude={3} delay={0.5}>
-                        <div className="w-16 h-16 rounded-full glass-morphism-blue flex items-center justify-center text-primary-blue-light group-hover:glow-blue-intense transition-all duration-300">
-                          <FaSearch className="text-xl" />
-                        </div>
-                      </FloatingElement>
-                      <div>
-                        <h3 className="font-bold text-white text-lg mb-2">Interactive Hotspots</h3>
-                        <p className="text-white/70">Click on hotspots for detailed information and specifications</p>
-                      </div>
-                    </motion.div>
-                  </StaggerItem>
-
-                  <StaggerItem>
-                    <motion.div 
-                      className="flex items-center gap-6 text-white/70 group"
-                      whileHover={{ x: 10 }}
-                    >
-                      <FloatingElement duration={4} amplitude={3} delay={1}>
-                        <div className="w-16 h-16 rounded-full glass-morphism-gold flex items-center justify-center text-primary-gold group-hover:glow-gold-intense transition-all duration-300">
-                          <FaTrophy className="text-xl" />
-                        </div>
-                      </FloatingElement>
-                      <div>
-                        <h3 className="font-bold text-white text-lg mb-2">Premium Experience</h3>
-                        <p className="text-white/70">High-quality visuals with smooth, lag-free navigation</p>
-                      </div>
-                    </motion.div>
-                  </StaggerItem>
-                </StaggerContainer>
-
-                <div className="flex flex-col sm:flex-row gap-6">
-                  <VirtualTourButton
-                    property={{
-                      id: 'vt-1',
-                      title: 'Luxury Estate Villa',
-                      location: 'Lekki, Lagos',
-                      price: '₦85,000,000',
-                      size: '450 sqm',
-                      image: '/properties/luxury-villa.jpg',
-                      description: 'Stunning luxury villa with modern amenities and breathtaking views',
-                      features: ['Swimming Pool', 'Garden', 'Garage', '4 Bedrooms', '3 Bathrooms'],
-                      amenities: ['24/7 Security', 'Power Supply', 'Water Supply', 'Internet'],
-                      gallery: ['/properties/luxury-villa.jpg', '/properties/villa-2.jpg'],
-                      status: 'Available',
-                      documents: ['Title Document', 'Survey Plan'],
-                      phoneNumber: '+234-XXX-XXX-XXXX'
-                    }}
-                    tourType="360"
-                    variant="primary"
-                  />
-                  <VirtualTourButton
-                    property={{
-                      id: 'vt-2',
-                      title: 'Modern Apartment',
-                      location: 'Victoria Island, Lagos',
-                      price: '₦45,000,000',
-                      size: '180 sqm',
-                      image: '/properties/modern-apartment.jpg',
-                      description: 'Contemporary apartment with city views and premium finishes',
-                      features: ['Balcony', 'Fitted Kitchen', '3 Bedrooms', '2 Bathrooms'],
-                      amenities: ['Gym', 'Swimming Pool', 'Elevator', 'Parking'],
-                      gallery: ['/properties/modern-apartment.jpg', '/properties/apartment-2.jpg'],
-                      status: 'Available',
-                      documents: ['Certificate of Occupancy', 'Building Plan'],
-                      phoneNumber: '+234-XXX-XXX-XXXX'
-                    }}
-                    tourType="video"
-                    variant="secondary"
-                  />
-                </div>
-              </motion.div>
-            </ScrollReveal>
-
-            <motion.div
-              className="relative h-[500px] rounded-2xl overflow-hidden glass-morphism group"
-              variants={fadeInUp}
-              whileHover={{ scale: 1.02 }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-primary-gold/20 via-transparent to-primary-blue-light/20" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <motion.div
-                    className="w-24 h-24 rounded-full glass-morphism-gold flex items-center justify-center text-primary-gold text-5xl mx-auto mb-6 glow-gold-intense cursor-pointer"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    animate={{
-                      scale: [1, 1.05, 1]
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    style={{
-                      boxShadow: "0 0 20px rgba(212, 175, 55, 0.3)"
-                    }}
-                  >
-                    <FaPlay />
-                  </motion.div>
-                  <p className="text-white font-bold text-xl mb-2">Watch Demo Tour</p>
-                  <p className="text-white/60">Experience luxury living in VR</p>
-                </div>
-              </div>
-            </motion.div>
-          </div>
+      {/* FEATURED PROPERTIES SECTION - Premium Showcase */}
+      <section className="py-32 relative overflow-hidden">
+        {/* Background with similar treatment to other sections */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/bg/properties_bg.jpg"
+            alt="Luxury properties background"
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ zIndex: 1 }}
+          />
+          
+          {/* Overlay with same gradient as other sections */}
+          <div className="absolute inset-0 bg-gradient-to-b from-primary-black/80 via-primary-black/70 to-primary-black/90" style={{ zIndex: 2 }} />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-blue-primary/5 via-transparent to-primary-gold/5" style={{ zIndex: 3 }} />
         </div>
-      </ParallaxSection> */}
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <ClientOnly>
+            <ClientStaggerContainer className="text-center max-w-5xl mx-auto mb-16">
+              <ClientStaggerItem>
+                <div className="mb-12">
+                  <h2 className="text-4xl sm:text-5xl md:text-6xl mb-6 leading-tight tracking-tight">
+                    <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                      Featured Properties
+                    </span>
+                  </h2>
+                </div>
+              </ClientStaggerItem>
+              
+              <ClientStaggerItem>
+                <ClientScrollReveal direction="up" delay={0.3}>
+                  <p className="text-xl sm:text-2xl text-white/95 font-montserrat font-light tracking-wide max-w-4xl mx-auto mb-16">
+                    Discover our most exceptional properties, each carefully curated to represent the pinnacle of luxury living and investment opportunity.
+                  </p>
+                </ClientScrollReveal>
+              </ClientStaggerItem>
+            </ClientStaggerContainer>
 
+            {/* Property Filter Tabs */}
+            <div className="max-w-6xl mx-auto mb-16">
+              <ClientStaggerItem>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {['All Properties', 'Residential', 'Commercial', 'Resort & Eco', 'Investment'].map((category, index) => (
+                    <button 
+                      key={index}
+                      className={`px-6 py-3 rounded-lg font-montserrat text-base transition-all duration-300 ${
+                        index === 0 
+                          ? 'bg-gradient-to-r from-primary-gold to-primary-gold-accent text-primary-black font-medium' 
+                          : 'bg-black/30 backdrop-blur-sm border border-white/10 text-white/80 hover:border-primary-gold/30 hover:text-white'
+                      }`}
+                    >
+                      {category}
+                    </button>
+                  ))}
+                </div>
+              </ClientStaggerItem>
+            </div>
 
-    
+            {/* Property Cards Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+              {/* Property Card 1 */}
+              <ClientStaggerItem>
+                <div className="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src="/properties/property1.jpg" 
+                      alt="Luxury Villa" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4 bg-primary-gold/90 text-primary-black px-4 py-1 rounded-full text-sm font-medium">
+                      Featured
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-24"></div>
+                  </div>
+                  
+                  <div className="p-6 flex-grow flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-cormorant text-white font-medium group-hover:text-primary-gold transition-colors duration-300">
+                        Sunset Villa
+                      </h3>
+                      <div className="text-primary-gold text-xl font-medium">
+                        ₦75M
+                      </div>
+                    </div>
+                    
+                    <p className="text-white/70 mb-6 font-montserrat text-sm flex-grow">
+                      Luxurious 5-bedroom villa with panoramic ocean views, infinity pool, and smart home technology.
+                    </p>
+                    
+                    <div className="flex justify-between items-center text-white/60 text-sm mb-6">
+                      <div className="flex items-center gap-2">
+                        <FaBed />
+                        <span>5 Beds</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <FaBath />
+                        <span>6 Baths</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <FaRuler />
+                        <span>750 sqm</span>
+                      </div>
+                    </div>
+                    
+                    <Link href="/properties/sunset-villa">
+                      <button className="w-full py-3 rounded-lg bg-gradient-to-r from-primary-gold/10 to-primary-gold/20 text-primary-gold border border-primary-gold/30 hover:from-primary-gold/20 hover:to-primary-gold/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </ClientStaggerItem>
+              
+              {/* Property Card 2 */}
+              <ClientStaggerItem>
+                <div className="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src="/properties/property2.jpg" 
+                      alt="Azure Towers" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4 bg-primary-blue-light/90 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      New
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-24"></div>
+                  </div>
+                  
+                  <div className="p-6 flex-grow flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-cormorant text-white font-medium group-hover:text-primary-blue-light transition-colors duration-300">
+                        Azure Towers
+                      </h3>
+                      <div className="text-primary-blue-light text-xl font-medium">
+                        ₦120M
+                      </div>
+                    </div>
+                    
+                    <p className="text-white/70 mb-6 font-montserrat text-sm flex-grow">
+                      Premium 3-bedroom penthouse with 360° city views, private elevator, and exclusive rooftop terrace.
+                    </p>
+                    
+                    <div className="flex justify-between items-center text-white/60 text-sm mb-6">
+                      <div className="flex items-center gap-2">
+                        <FaBed />
+                        <span>3 Beds</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <FaBath />
+                        <span>4 Baths</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <FaRuler />
+                        <span>450 sqm</span>
+                      </div>
+                    </div>
+                    
+                    <Link href="/properties/azure-towers">
+                      <button className="w-full py-3 rounded-lg bg-gradient-to-r from-primary-blue-light/10 to-primary-blue-light/20 text-primary-blue-light border border-primary-blue-light/30 hover:from-primary-blue-light/20 hover:to-primary-blue-light/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </ClientStaggerItem>
+              
+              {/* Property Card 3 */}
+              <ClientStaggerItem>
+                <div className="glass-card rounded-xl overflow-hidden group hover:-translate-y-2 transition-all duration-500 h-full flex flex-col">
+                  <div className="relative h-64 overflow-hidden">
+                    <img 
+                      src="/properties/property3.jpg" 
+                      alt="Emerald Estate" 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 left-4 bg-green-500/90 text-white px-4 py-1 rounded-full text-sm font-medium">
+                      Eco-Friendly
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent h-24"></div>
+                  </div>
+                  
+                  <div className="p-6 flex-grow flex flex-col">
+                    <div className="flex justify-between items-start mb-4">
+                      <h3 className="text-2xl font-cormorant text-white font-medium group-hover:text-green-400 transition-colors duration-300">
+                        Emerald Estate
+                      </h3>
+                      <div className="text-green-400 text-xl font-medium">
+                        ₦45M
+                      </div>
+                    </div>
+                    
+                    <p className="text-white/70 mb-6 font-montserrat text-sm flex-grow">
+                      Sustainable 4-bedroom eco-home with solar power, rainwater harvesting, and organic garden.
+                    </p>
+                    
+                    <div className="flex justify-between items-center text-white/60 text-sm mb-6">
+                      <div className="flex items-center gap-2">
+                        <FaBed />
+                        <span>4 Beds</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <FaBath />
+                        <span>3 Baths</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <FaRuler />
+                        <span>500 sqm</span>
+                      </div>
+                    </div>
+                    
+                    <Link href="/properties/emerald-estate">
+                      <button className="w-full py-3 rounded-lg bg-gradient-to-r from-green-500/10 to-green-500/20 text-green-400 border border-green-500/30 hover:from-green-500/20 hover:to-green-500/30 transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>View Details</span>
+                        <FaArrowRight className="text-sm" />
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </ClientStaggerItem>
+            </div>
+            
+            {/* View All Properties Button */}
+            <div className="text-center mt-16">
+              <ClientStaggerItem>
+                <Link href="/properties">
+                  <button className="px-10 py-5 text-lg rounded-lg font-montserrat font-medium bg-gradient-to-r from-primary-gold to-primary-gold-accent text-primary-black hover:shadow-[0_0_20px_rgba(201,161,77,0.5)] transition-all duration-300 flex items-center justify-center gap-3 mx-auto">
+                    <span>View All Properties</span>
+                    <FaArrowRight />
+                  </button>
+                </Link>
+              </ClientStaggerItem>
+            </div>
+          </ClientOnly>
+        </div>
+      </section>
 
       {/* TESTIMONIALS SECTION - Elegant & Premium */}
       <section className="py-32 relative overflow-hidden">

@@ -560,9 +560,12 @@ export default function HomePage() {
               <motion.div
                 className="mb-8"
               >
-                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-8 leading-tight tracking-tight">
+                <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl mb-8 leading-tight tracking-tight font-extrabold">
+                  <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer mb-2" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
+                    Where Vision Meets
+                  </span>
                   <span className="block bg-clip-text text-transparent bg-gradient-to-r from-primary-gold via-white/90 to-primary-gold-accent font-cormorant drop-shadow-[0_2px_2px_rgba(0,0,0,0.3)] filter-none luxury-heading-shimmer" style={{textShadow: "0 2px 4px rgba(0,0,0,0.2), 0 0 10px rgba(201,161,77,0.3)"}}>
-                    Where Vision Meets Value
+                    Value
                   </span>
                 </h1>
               </motion.div>
@@ -661,7 +664,7 @@ export default function HomePage() {
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/bg/back_.jpeg"
+            src="\background\black-golden-colored-wallpaper_53876-138191.jpg"
             alt="Luxury background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}
@@ -736,7 +739,7 @@ export default function HomePage() {
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/bg/datebg.jpg"
+            src="\background\black-golden-colored-wallpaper_53876-138191.jpg"
             alt="Luxury background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}
@@ -865,7 +868,7 @@ export default function HomePage() {
         {/* Background with similar treatment to hero */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/bg/bg_account.png"
+            src="\background\black-golden-colored-wallpaper_53876-138191.jpg"
             alt="Luxury background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}
@@ -1220,7 +1223,7 @@ export default function HomePage() {
         {/* Background with similar treatment to other sections */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/bg/back_.jpeg"
+            src="\background\black-golden-colored-wallpaper_53876-138191.jpg"
             alt="Luxury background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}
@@ -1345,7 +1348,7 @@ export default function HomePage() {
         {/* Background with similar treatment to other sections */}
         <div className="absolute inset-0 z-0">
           <img
-            src="/bg/datebg.jpg"
+            src="\background\black-golden-colored-wallpaper_53876-138191.jpg"
             alt="Luxury background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ zIndex: 1 }}

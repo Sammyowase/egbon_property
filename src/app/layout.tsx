@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AudioBackground from "@/components/AudioBackground";
@@ -100,10 +101,12 @@ export default function RootLayout({
           }}
         />
         <StructuredData type="WebSite" data={{}} />
-        <Analytics
-          googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
-          facebookPixelId={process.env.NEXT_PUBLIC_FB_PIXEL_ID}
-        />
+        <Suspense fallback={null}>
+          <Analytics
+            googleAnalyticsId={process.env.NEXT_PUBLIC_GA_ID}
+            facebookPixelId={process.env.NEXT_PUBLIC_FB_PIXEL_ID}
+          />
+        </Suspense>
       </head>
       <body className="font-body luxury-bg-gradient luxury-bg-pattern text-white min-h-screen flex flex-col relative">
         {/* Enhanced Background Elements */}
@@ -120,20 +123,22 @@ export default function RootLayout({
           Skip to main content
         </a>
         <LoadingProvider>
-          <PageTransitionProvider>
-            {/* Custom cursor removed for a more mature design */}
-            <ErrorBoundary>
-              <div className="relative z-10">
-                <Navbar />
-                <LinkEnhancer />
-                <AudioBackground />
-                <main id="main-content" className="flex-grow relative z-10" role="main">
-                  {children}
-                </main>
-                <Footer />
-              </div>
-            </ErrorBoundary>
-          </PageTransitionProvider>
+          <Suspense fallback={null}>
+            <PageTransitionProvider>
+              {/* Custom cursor removed for a more mature design */}
+              <ErrorBoundary>
+                <div className="relative z-10">
+                  <Navbar />
+                  <LinkEnhancer />
+                  <AudioBackground />
+                  <main id="main-content" className="flex-grow relative z-10" role="main">
+                    {children}
+                  </main>
+                  <Footer />
+                </div>
+              </ErrorBoundary>
+            </PageTransitionProvider>
+          </Suspense>
         </LoadingProvider>
       </body>
     </html>

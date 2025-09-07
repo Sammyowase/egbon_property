@@ -9,7 +9,11 @@ interface PageWrapperProps {
   className?: string
 }
 
-const PageWrapper = ({ children, backgroundVariant = 'default', className = '' }: PageWrapperProps) => {
+const PageWrapper = ({ 
+  children, 
+  backgroundVariant = 'default', 
+  className = ''
+}: PageWrapperProps) => {
   return (
     <div className={`relative min-h-screen ${className}`}>
       <EnhancedBackground variant={backgroundVariant} />

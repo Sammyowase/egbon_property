@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
+import NavbarWithLoader from "@/components/NavbarWithLoader";
 import Footer from "@/components/Footer";
 import AudioBackground from "@/components/AudioBackground";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import StructuredData from "@/components/seo/StructuredData";
 import Analytics from "@/components/seo/Analytics";
 import LoadingProvider from "@/components/providers/LoadingProvider";
+import PageTransitionProvider from "@/components/providers/PageTransitionProvider";
 import CustomCursor from "@/components/ui/CustomCursor";
 
 // Import Google Fonts
@@ -118,17 +119,19 @@ export default function RootLayout({
           Skip to main content
         </a>
         <LoadingProvider>
-          {/* Custom cursor removed for a more mature design */}
-          <ErrorBoundary>
-            <div className="relative z-10">
-              <Navbar />
-              <AudioBackground />
-              <main id="main-content" className="flex-grow relative z-10" role="main">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </ErrorBoundary>
+          <PageTransitionProvider>
+            {/* Custom cursor removed for a more mature design */}
+            <ErrorBoundary>
+              <div className="relative z-10">
+                <NavbarWithLoader />
+                <AudioBackground />
+                <main id="main-content" className="flex-grow relative z-10" role="main">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </ErrorBoundary>
+          </PageTransitionProvider>
         </LoadingProvider>
       </body>
     </html>

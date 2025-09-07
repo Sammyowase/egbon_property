@@ -1,7 +1,8 @@
 'use client'
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
+import PremiumPageLoader from '@/components/ui/PremiumPageLoader'
 import { ElegantLoadingSpinner } from '@/components/ui/LuxuryLoadingSpinner'
 
 interface LoadingContextType {
@@ -30,25 +31,28 @@ export default function LoadingProvider({ children }: LoadingProviderProps) {
   const [isPageTransition, setIsPageTransition] = useState(false)
   const [hasLoadedOnce, setHasLoadedOnce] = useState(false)
 
-  // Initial app loading with luxury spinner
+  // Initial app loading with premium loader
   useEffect(() => {
-    // Check if user has already seen the loading animation in this session
-    const hasSeenLoading = sessionStorage.getItem('vista-grande-loaded')
+    // Check if this is a full page refresh or just a client-side navigation
+    const isPageRefresh = performance.navigation?.type === 1 || 
+                          document.referrer === '' || 
+                          !sessionStorage.getItem('vista-grande-loaded');
     
-    if (hasSeenLoading) {
+    if (isPageRefresh) {
+      // This is a full page refresh - show the premium loader
+      setIsLoading(true)
+      // The session storage will be set after the loader completes
+    } else {
+      // This is a client-side navigation or returning visitor - don't show the initial loader
       setIsLoading(false)
       setHasLoadedOnce(true)
-      return
     }
 
-    // Show luxury loading spinner for 2 seconds
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-      setHasLoadedOnce(true)
-      sessionStorage.setItem('vista-grande-loaded', 'true')
-    }, 2000) // 2 seconds for optimal UX
-
-    return () => clearTimeout(timer)
+    // This effect just sets up the callback
+    // The actual timing is handled by the PremiumPageLoader
+    return () => {
+      // Cleanup if needed
+    }
   }, [])
 
   const setLoading = (loading: boolean) => {
@@ -56,67 +60,49 @@ export default function LoadingProvider({ children }: LoadingProviderProps) {
   }
 
   const showPageLoader = () => {
-    setIsPageTransition(true)
-  }
-
-  const hidePageLoader = () => {
-    setIsPageTransition(false)
-  }
-
-  // Animation variants
-  const containerVariants = {
-    visible: { opacity: 1 },
-    exit: { 
-      opacity: 0,
-      transition: { duration: 0.5, ease: "easeInOut" }
+    // Only show if not already showing
+    if (!isPageTransition) {
+      setIsPageTransition(true)
     }
   }
 
-  const LoadingSpinner = ({ isInitial = false }: { isInitial?: boolean }) => (
-    <motion.div
-      className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-primary-black"
-      variants={containerVariants}
-      initial="visible"
-      exit="exit"
-      role="status"
-      aria-live="polite"
-      aria-label={isInitial ? "Welcome to Vista Grande, loading application" : "Loading content"}
-    >
-      {/* Luxury Brand Header */}
-      <motion.div
-        className="text-center mb-12"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-      >
-        <h1 className="text-4xl font-bold text-white mb-2 luxury-gradient-text">
-          Vista Grande Realty
-        </h1>
-        <p className="text-white/70 text-lg">
-          {isInitial ? 'Preparing your luxury experience...' : 'Loading content...'}
-        </p>
-      </motion.div>
+  const hidePageLoader = () => {
+    if (isPageTransition) {
+      setIsPageTransition(false)
+    }
+  }
 
-      {/* Enhanced Luxury Loading Spinner */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
-      >
-        <ElegantLoadingSpinner 
-          size="xl" 
-          message={isInitial ? "Welcome to luxury real estate" : "Loading..."} 
-        />
-      </motion.div>
-    </motion.div>
-  )
+  // Handler for when the premium loader completes
+  const handleLoadingComplete = () => {
+    setTimeout(() => {
+      setIsLoading(false)
+      setHasLoadedOnce(true)
+      sessionStorage.setItem('vista-grande-loaded', 'true')
+    }, 800) // Small delay for smooth transition
+  }
+
+  // Handler for when the page transition loader completes
+  const handleTransitionComplete = () => {
+    setTimeout(() => {
+      setIsPageTransition(false)
+    }, 300) // Small delay for smooth transition
+  }
 
   return (
     <LoadingContext.Provider value={{ isLoading, setLoading, showPageLoader, hidePageLoader }}>
-      <AnimatePresence mode="wait">
-        {isLoading && <LoadingSpinner isInitial={!hasLoadedOnce} />}
-        {isPageTransition && <LoadingSpinner />}
-      </AnimatePresence>
+      {/* Initial Application Loader */}
+      <PremiumPageLoader 
+        show={isLoading} 
+        onLoadingComplete={handleLoadingComplete} 
+      />
+      
+      {/* Page Transition Loader - Now using PremiumPageLoader for consistency */}
+      <PremiumPageLoader 
+        show={isPageTransition} 
+        onLoadingComplete={handleTransitionComplete}
+        variant="minimal" 
+      />
+      
       {children}
     </LoadingContext.Provider>
   )

@@ -706,7 +706,7 @@ export default function AboutPage() {
             >
               <div className="relative aspect-video glass-morphism">
                 <Image
-                  src="/about/approach.jpg"
+                  src="/background/webaliser-_TPTXZd9mOo-unsplash.jpg"
                   alt="Our Approach"
                   fill
                   className="object-cover object-center hover:scale-105 transition-transform duration-1000"

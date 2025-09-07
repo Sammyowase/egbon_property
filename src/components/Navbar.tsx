@@ -387,22 +387,24 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-      </div>
-
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {isOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, ease: "easeInOut" }}
-              className="md:hidden bg-primary-black/95 backdrop-blur-lg border-t border-primary-gold/10 fixed inset-x-0 bottom-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-gold/30 scrollbar-track-transparent z-40"
-              style={{ top: isScrolled ? '96px' : '144px' }}
-              id="mobile-menu"
-              role="navigation"
-              aria-label="Mobile navigation"
-            >
+        </div>
+        
+      </nav>
+      
+      {/* Mobile menu as a separate element */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="md:hidden bg-primary-black/95 backdrop-blur-lg border-t border-primary-gold/10 fixed inset-x-0 bottom-0 overflow-y-auto scrollbar-thin scrollbar-thumb-primary-gold/30 scrollbar-track-transparent z-40"
+            style={{ top: isScrolled ? '72px' : '120px' }}
+            id="mobile-menu"
+            role="navigation"
+            aria-label="Mobile navigation"
+          >
               <div className="px-4 pt-4 pb-24 space-y-2">
                 {navLinks.map((link, index) => (
                   link.name !== 'Portfolio' && (
@@ -514,7 +516,6 @@ const Navbar = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
     </>
   )
 }

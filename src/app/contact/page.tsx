@@ -85,8 +85,8 @@ export default function ContactPage() {
 
   const socialLinks = [
     { icon: FaWhatsapp, href: '#', label: 'WhatsApp', color: 'hover:text-green-400' },
-    { icon: FaFacebookF, href: '#', label: 'Facebook', color: 'hover:text-blue-400' },
-    { icon: FaInstagram, href: '#', label: 'Instagram', color: 'hover:text-pink-400' },
+    { icon: FaFacebookF, href: 'PVistaGrandeRealty', label: 'Facebook', color: 'hover:text-blue-400' },
+    { icon: FaInstagram, href: 'PVistaGrandeRealty', label: 'Instagram', color: 'hover:text-pink-400' },
     { icon: FaLinkedin, href: '#', label: 'LinkedIn', color: 'hover:text-blue-300' },
     { icon: FaTwitter, href: '#', label: 'Twitter', color: 'hover:text-blue-400' },
   ]
@@ -262,7 +262,10 @@ export default function ContactPage() {
             whileHover={{ scale: 1.05 }}
             transition={{ duration: 0.2 }}
           >
-            Connect With Us
+         Let's Build Something Great
+         <br />
+         Follow us on social media for updates, new
+listings, and real estate tips:
           </motion.h2>
           <div className="flex justify-center space-x-8">
             {socialLinks.map((social, index) => (

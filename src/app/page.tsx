@@ -1270,7 +1270,7 @@ export default function HomePage() {
                       
                       <div className="flex items-center">
                         <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-gold to-primary-gold-accent/70 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                          <img src="/testimonials/person1.jpg" alt="Adewale A." className="w-full h-full object-cover opacity-80" />
+                          <img src="/testimonial/adewale.jpg" alt="Adewale A." className="w-full h-full object-cover opacity-80" />
                         </div>
                         <div className="ml-4">
                           <h4 className="text-lg font-cormorant text-primary-gold font-medium">
@@ -1304,7 +1304,7 @@ export default function HomePage() {
                       
                       <div className="flex items-center">
                         <div className="w-14 h-14 rounded-full bg-gradient-to-br from-primary-blue-light to-primary-blue-light/70 flex items-center justify-center flex-shrink-0 overflow-hidden">
-                          <img src="/testimonials/person2.jpg" alt="Ifeoma O." className="w-full h-full object-cover opacity-80" />
+                          <img src="/testimonial/ifeoma.jpg" alt="Ifeoma O." className="w-full h-full object-cover opacity-80" />
                         </div>
                         <div className="ml-4">
                           <h4 className="text-lg font-cormorant text-primary-blue-light font-medium">

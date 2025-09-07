@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import AudioBackground from "@/components/AudioBackground";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
 import StructuredData from "@/components/seo/StructuredData";
+import LinkEnhancer from "@/components/ui/LinkEnhancer";
 import Analytics from "@/components/seo/Analytics";
 import LoadingProvider from "@/components/providers/LoadingProvider";
 import PageTransitionProvider from "@/components/providers/PageTransitionProvider";
@@ -124,6 +125,7 @@ export default function RootLayout({
             <ErrorBoundary>
               <div className="relative z-10">
                 <Navbar />
+                <LinkEnhancer />
                 <AudioBackground />
                 <main id="main-content" className="flex-grow relative z-10" role="main">
                   {children}

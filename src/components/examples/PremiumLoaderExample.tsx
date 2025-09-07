@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { usePageLoading } from '@/hooks/usePageLoading'
 import LuxuryButton from '@/components/ui/LuxuryButton'
 import PremiumLink from '@/components/ui/PremiumLink'

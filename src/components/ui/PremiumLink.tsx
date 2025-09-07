@@ -74,3 +74,44 @@ export default function PremiumLink({
     </Link>
   )
 }
+
+// Add a utility function to enhance regular links with premium loading
+export function enhanceLinks() {
+  if (typeof window === 'undefined') return; // Skip on server-side
+  
+  // Wait for DOM to be fully loaded
+  setTimeout(() => {
+    const { showLoader } = require('@/hooks/usePageLoading').usePageLoading();
+    const router = require('next/navigation').useRouter();
+    
+    // Find all internal links that aren't already enhanced
+    const links = document.querySelectorAll('a[href^="/"]:not([data-premium-enhanced])');
+    
+    links.forEach(link => {
+      // Mark as enhanced to avoid double processing
+      link.setAttribute('data-premium-enhanced', 'true');
+      
+      // Store the original href
+      const href = link.getAttribute('href');
+      
+      // Add click handler
+      link.addEventListener('click', (e) => {
+        // Skip if it's a special link
+        if (href?.startsWith('#') || link.hasAttribute('target')) {
+          return;
+        }
+        
+        // Prevent default navigation
+        e.preventDefault();
+        
+        // Show loader
+        showLoader(1500);
+        
+        // Navigate after a short delay
+        setTimeout(() => {
+          router.push(href);
+        }, 50);
+      });
+    });
+  }, 1000); // Delay to ensure DOM is loaded
+}

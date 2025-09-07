@@ -16,6 +16,8 @@ const PremiumPageLoader = ({
   variant = 'default' 
 }: PremiumPageLoaderProps) => {
   const [loadingStage, setLoadingStage] = useState<'initial' | 'logo' | 'progress' | 'complete'>('initial')
+  // Type guard function to check if loadingStage is a specific value
+  const isLoadingStage = (stage: string, value: string): boolean => stage === value
   const [progress, setProgress] = useState(0)
   const logoRef = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
@@ -183,7 +185,7 @@ const PremiumPageLoader = ({
                 animate={{ 
                   opacity: 1, 
                   scale: 1,
-                  y: loadingStage === 'progress' ? -40 : 0
+                  y: isLoadingStage(loadingStage, 'progress') ? -40 : 0
                 }}
                 transition={{ 
                   duration: 1.2, 
@@ -194,7 +196,7 @@ const PremiumPageLoader = ({
                 {/* Company Logo */}
                 <motion.div
                   className="relative flex flex-col items-center"
-                  animate={loadingStage === 'progress' ? { scale: 0.8 } : { scale: 1 }}
+                  animate={isLoadingStage(loadingStage, 'progress') ? { scale: 0.8 } : { scale: 1 }}
                   transition={{ duration: 0.8 }}
                 >
                   <motion.h1 
@@ -238,8 +240,8 @@ const PremiumPageLoader = ({
                   className="absolute -bottom-12 left-1/2 transform -translate-x-1/2 w-24 h-24"
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ 
-                    opacity: loadingStage === 'logo' ? [0, 1, 0] : 0, 
-                    scale: loadingStage === 'logo' ? [0, 1.2, 0] : 0,
+                    opacity: isLoadingStage(loadingStage, 'logo') ? [0, 1, 0] : 0, 
+                    scale: isLoadingStage(loadingStage, 'logo') ? [0, 1.2, 0] : 0,
                     rotate: 90
                   }}
                   transition={{ 

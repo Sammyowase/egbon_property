@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import NavbarWithLoader from "@/components/NavbarWithLoader";
+import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import AudioBackground from "@/components/AudioBackground";
 import ErrorBoundary from "@/components/ui/ErrorBoundary";
@@ -123,7 +123,7 @@ export default function RootLayout({
             {/* Custom cursor removed for a more mature design */}
             <ErrorBoundary>
               <div className="relative z-10">
-                <NavbarWithLoader />
+                <Navbar />
                 <AudioBackground />
                 <main id="main-content" className="flex-grow relative z-10" role="main">
                   {children}

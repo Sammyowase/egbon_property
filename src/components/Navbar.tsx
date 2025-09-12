@@ -85,7 +85,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   <FiPhone className="w-3 h-3" />
-                  <span className="text-xs sm:text-sm">+234 (0) 123 456 7890</span>
+                  <span className="text-xs sm:text-sm">+2349068855903</span>
                 </motion.div>
                 <motion.div 
                   className="flex items-center space-x-2 hover:text-primary-gold transition-colors cursor-pointer"

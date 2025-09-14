@@ -92,7 +92,7 @@ const Navbar = () => {
                   whileHover={{ scale: 1.05 }}
                 >
                   <FiMail className="w-3 h-3" />
-                  <span className="text-xs sm:text-sm">info@vistagrande.com</span>
+                  <span className="text-xs sm:text-sm">info@vistagranderealty.com</span>
                 </motion.div>
               </div>
               
